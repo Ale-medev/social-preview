@@ -1,0 +1,222 @@
+---
+import Overlay from "../common/Overlay.astro";
+import Btn from "../ui/Btn.astro";
+
+interface Props {
+  es?: boolean;
+  en?: boolean;
+  linkBook: string;
+  items: any;
+}
+
+const { es, en, items = [] } = Astro.props;
+---
+
+<section class="min-h-screen bg-black-light">
+  <Overlay />
+  <div class="splide" id="heroSplider">
+    <div class="splide__track">
+      <ul class="splide__list">
+        {
+          items.map(
+            ({ title, img, label, link }, index) => (
+              <li class="splide__slide">
+                <div>
+                  <picture class="h-full w-full min-h-screen absolute top-0 left-0 block -z-10">
+                    <img
+                      src={img.url}
+                      alt={img.alt}
+                      class="w-full h-full object-cover block"
+                    />
+                  </picture>
+                  <div class="container-main text-center relative h-full w-full min-h-screen flex flex-col justify-center items-center gap-10 sm:gap-[3.75rem] z-10">
+                    <div>
+                      <div class="flex justify-center items-center gap-6 font-display text-[1.5rem] text-white-light mb-8 font-thin tracking-[.10em]">
+                        <span>{`${(index + 1).toString().padStart(2, "0")}`}</span>
+                        <div class="item-progress">
+                          <div class="item-progress__bar" />
+                        </div>
+                        <span>{`${(((index + 1) % items.length) + 1).toString().padStart(2, "0")}`}</span>
+                      </div>
+                      <h1 class="font-display text-display-lg text-white-light uppercase">
+                        {es ? title.es : en ? title.en : ''}
+                      </h1>
+                    </div>
+
+                    <Btn label={es ? label.es : en ? label.en : ''} href={es ? link.es : en ? link.en : ''} variant="secondaryAlt" />
+                  </div>
+                </div>
+              </li>
+            )
+          )
+        }
+      </ul>
+    </div>
+    <div class="splide__arrows">
+      <button class="splide__arrow--prev"> </button>
+      <button class="splide__arrow--next"> </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .item-progress {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(236, 229, 213, 0.15);
+    overflow: hidden;
+    width: 6.5rem;
+  }
+
+  .item-progress__bar {
+    width: 0;
+    height: 100%;
+    background-color: var(--color-white-light);
+  }
+
+  .splide__arrows button {
+    height: 100%;
+    width: 25%;
+    position: absolute;
+  }
+
+  .splide__arrows .splide__arrow--prev {
+    top: 0;
+    left: 0;
+    cursor:
+      url("/images/arrow-slider-prev.svg") 16 16,
+      auto;
+  }
+
+  .splide__arrows .splide__arrow--next {
+    top: 0;
+    right: 0;
+    cursor:
+      url("/images/arrow-slider.svg") 16 16,
+      auto;
+  }
+
+  @media screen and (min-width: 768px) {
+    .item-progress {
+      width: 10rem;
+    }
+  }
+</style>
+
+<script>
+  import Splide from "@splidejs/splide";
+
+  import { gsap } from "gsap";
+
+  // Crear una transición personalizada
+  function createHeroSlider(){
+    function GSAPTransition(Splide, Components) {
+    const { Move } = Components;
+    const { list } = Components.Elements;
+    let endCallback;
+
+    function mount() {
+      // Escuchar cuando termina una transición
+      Splide.on("transitionend", () => {
+        if (endCallback) {
+          cancel();
+          endCallback();
+        }
+      });
+    }
+
+    function start(index, done) {
+      const destination = Move.toPosition(index, true);
+      const activeSlide = Splide.Components.Elements.slides[index];
+      const previousSlide = Splide.Components.Elements.slides[Splide.index];
+
+      // Animar el slide actual
+      if (activeSlide) {
+        const img = activeSlide.querySelector("img");
+        const title = activeSlide.querySelector("h1");
+        const button = activeSlide.querySelector("a");
+
+        gsap
+          .timeline()
+          .fromTo(
+            img,
+            { opacity: 0, scale: 1.2 },
+            { opacity: 1, scale: 1, duration: 1, ease: "power1.out" }
+          )
+          .fromTo(
+            title,
+            { opacity: 0, y: "1em" },
+            { opacity: 1, y: 0, duration: 0.8, ease: "power1.out" },
+            "-=0.4"
+          )
+          .fromTo(
+            button,
+            { opacity: 0, y: "0.8em" },
+            { opacity: 1, y: 0, duration: 0.8, ease: "power1.out" },
+            "-=0.4"
+          );
+      }
+
+      // Animar el slide previo
+      if (previousSlide) {
+        const imgPrev = previousSlide.querySelector("img");
+        const titlePrev = previousSlide.querySelector("h1");
+        const buttonPrev = previousSlide.querySelector("a");
+
+        gsap
+          .timeline()
+          .to(imgPrev, { duration: 1 })
+          .to(titlePrev, { opacity: 0, y: -50, duration: 0.4 }, "-=0.8")
+          .to(buttonPrev, { opacity: 0, y: -30, duration: 0.4 }, "-=0.8");
+      }
+
+      // Mover el slider
+      list.style.transition = "transform 800ms cubic-bezier(.44,.65,.07,1.01)";
+      Move.translate(destination);
+      endCallback = done;
+    }
+
+    function cancel() {
+      list.style.transition = "";
+    }
+
+    return {
+      mount,
+      start,
+      cancel,
+    };
+  }
+
+  var splide = new Splide("#heroSplider", {
+    arrows: true,
+    pagination: false,
+    speed: 1000,
+    drag: false,
+    interval: 8000,
+    autoplay: true,
+    type: "loop",
+    progress: true,
+    resetProgress: false,
+    pauseOnHover: false,
+  });
+
+  // Asegurarse de que el autoplay se reanude después de usar los botones
+  splide.on("move", function () {
+    splide.Components.Autoplay.play();
+  });
+
+  splide.on("autoplay:playing", function (rate) {
+    document.querySelectorAll(".item-progress__bar").forEach(function (bar) {
+      (bar as HTMLElement).style.width = rate * 100 + "%";
+    });
+  });
+
+  splide.mount({}, GSAPTransition);
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    if(document.getElementById('heroSplider')){
+      createHeroSlider()
+    }
+  })
+</script>

@@ -1,11 +1,39 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import HomeTemplate from "../layouts/template/HomeTemplate.astro";
+import { HERO_SLIDER, ABOUT, GRID_SERVICE, INFO_BOT, CONTACT_INFO, PREFOOTER_IMGS} from "../content/content";
+import {NAVIGATION} from "../content/navigation"
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// console.log(HERO_SLIDER)
+
+const es = true;
+const en = false;
+const linkBook = "#";
+
 ---
 
-<Layout>
-	<Welcome />
+<Layout en={en} es={es} linkBook={linkBook} tel={CONTACT_INFO.tel} email={CONTACT_INFO.email} instagram={CONTACT_INFO.instagram} facebook={CONTACT_INFO.facebook} links={NAVIGATION}>
+  <HomeTemplate
+    en={en}
+    es={es}
+    itemsSlider={HERO_SLIDER}
+    linkBook={linkBook}
+    titleAbout={ABOUT.title.es}
+    textAbout={ABOUT.text.es}
+    textMayusAbout={ABOUT.TextMayus.es}
+    videoID="1046476358"
+    itemsServices={GRID_SERVICE}
+    textMayusBot={INFO_BOT.textMayus.es}
+    imgGallery1={INFO_BOT.image1}
+    imgGallery2={INFO_BOT.image2}
+    imgGallery3={INFO_BOT.image3}
+    imgGallery4={INFO_BOT.image4}
+    imgPrefooter1={PREFOOTER_IMGS.image1}
+    imgPrefooter2={PREFOOTER_IMGS.image2}
+    imgPrefooter3={PREFOOTER_IMGS.image3}
+    imgPrefooter4={PREFOOTER_IMGS.image4}
+    imgPrefooter5={PREFOOTER_IMGS.image5}
+  />
 </Layout>
+
+<!-- {ABOUT.videoID} -->

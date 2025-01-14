@@ -1,0 +1,230 @@
+---
+import Logo from "../common/Logo.astro";
+import Btn from "../ui/Btn.astro";
+import SwichDarkMode from "../ui/SwichDarkMode.astro";
+import ToggleMenu from "../common/ToggleMenu.astro";
+import IconMenu from "../common/IconMenu.astro"
+
+interface Props {
+  es?: boolean;
+  en?: boolean;
+  variant?: "light" | "dark" | "toggle";
+  linkBook: string;
+  links: any;
+  tel: string;
+  email: string;
+  facebook?: string;
+  instagram?: string;
+}
+
+const { en, es, variant = "light", linkBook, links = [], tel, email, facebook, instagram } = Astro.props;
+
+const variants = {
+  light: "text-white-light",
+  dark: "text-black",
+  toggle: "text-black dark:text-white-light",
+};
+---
+
+<header data-section="menu">
+  <div class="h-[var(--h-header)] fixed w-full z-50 pointer-events-none">
+    <div
+      class="flex justify-between w-full h-full items-center px-[var(--space-main)] md:px-32"
+    >
+      <div class="flex gap-4 bar-scroll pointer-events-auto"> 
+        <ToggleMenu />
+
+        <SwichDarkMode />
+      </div>
+
+      <div class="hidden sm:block pointer-events-auto">
+        <Btn label={es ? "Reservas" : en ? "Book now" : ""} href={linkBook} />
+      </div>
+    </div>
+  </div>
+  <div class="absolute top-0 right-0 sm:right-[auto] sm:left-[50%] sm:translate-x-[-50%] p-4 sm:px-0 sm:py-9 z-20">
+    <a href="/">
+      <Logo class={`${variants[variant]} block h-11 sm:h-[4.25rem]`} />
+    </a>
+  </div>
+  <div
+    class="fixed top-0 left-0 min-h-screen w-full z-40 bg-black-light flex will-change-transform overlay"
+  >
+    <nav class="fixed top-0 left-0 min-h-screen w-full overlay-menu flex justify-between flex-col gap-8">
+      {
+        links && Array.isArray(links) && links.length > 0 && (
+          <ul class="flex flex-col justify-center text-center text-display-xl uppercase font-display grow pt-28 sm:pt-20 gap-3 sm:gap-1">
+            {links.map(({ href, label }) => (
+              <li class="menu-item active flex justify-center">
+                {href && (
+                  <div class="relative overflow-hidden">
+                    <a
+                      href={es ? href.es : en ? href.en : ""}
+                      class="text-white-light inline-block translate-y-[112%]"
+                    >
+                      {es ? label.es : en ? label.en : ""}
+                    </a>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+       <div class="w-full grow-0 flex justify-center p-8 sm:p-10 gap-3 items-center text-label-md flex-wrap text-white-light submenu translate-y-4 opacity-0">
+        <span><a class="hover:text-primary transition" href={`mailto:${email}`}>{email}</a></span>
+        <span class="hidden sm:block"><IconMenu /></span>
+        <span class="block">
+          Tel. {
+            tel && (
+              <a class="hover:text-primary transition" href={`tel:${tel.replace(/\D/g, "")}`}>
+                {tel}
+              </a>
+            )
+          }
+        </span>
+        <span><IconMenu /></span>
+        <span><a class="hover:text-primary transition" href={instagram}>Instagram</a></span>
+        <span class="hidden sm:block"><IconMenu /></span>
+        <span><a class="hover:text-primary transition" href={facebook}>Facebook</a></span>
+      </div>
+    </div>
+    </nav>
+</header>
+
+<style>
+
+  .overlay{
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+
+  .dark .overlay::before {
+    opacity: 0.9;
+    mix-blend-mode: difference;
+  }
+
+  .overlay::before {
+    content: "";
+    transition: 500ms ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(/images/noise.webp);
+    background-repeat: repeat;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .menu-item > div{
+    /* clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); */
+    transition: letter-spacing 0.3s;
+  }
+
+  .menu-item > div:hover{
+    letter-spacing: 0.015em;
+    will-change: transform;
+  }
+
+  .menu-item.active > div::after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background-color: var(--color-primary);
+    width: 0%;
+    height: 4px;
+    transition: width 0.5s 0.2s ease-in-out;
+  }
+
+  .menu-item.active > .line-active::after{
+    width: 100%;
+    transition: width 0.8s 0.5s ease-in-out;
+  }
+</style>
+
+<script>
+
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+const menu = document.querySelector(".overlay")
+
+const links = menu.querySelectorAll("a")
+
+const lineActive = menu.querySelector(".menu-item.active div")
+
+const toggleMenu = document.querySelector('.toggleMenu')
+
+const tl = gsap.timeline({ reversed: true, paused: true });
+
+tl.to(menu,{ 
+  clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+    duration: 1.5,
+    ease: "power4.inOut",
+});
+
+tl.to(links ,{ 
+    duration: 1.5,
+    y: 0,
+    stagger: 0.2,
+    ease: "power4.inOut"
+},"-=1");
+
+tl.to(lineActive ,{
+  duration: 1,
+  onUpdate: () => {
+    if(reverse){
+      lineActive.classList.add('line-active');
+    } 
+
+  },
+  ease: "power4.inOut",
+  delay: 0.5
+},"<")
+
+tl.to(".submenu", { 
+    duration: 0.5,
+    y: 0,
+    opacity: 1,
+    delay: 0.5,
+},"<");
+
+let reverse = false;
+
+function toggleMenuChangeHandler() {
+
+  const body = document.body;
+
+    console.log("click");
+
+    reverse = !reverse;
+
+    if (tl.reversed()) {
+      tl.timeScale(reverse ? 1 : 1.5).play();
+
+      body.classList.add("overflow-hidden");
+    } else {
+      tl.timeScale(reverse ? 1 : 1.5).reverse();
+      body.classList.remove("overflow-hidden");
+      lineActive.classList.remove('line-active');
+    }
+
+}
+
+toggleMenu.addEventListener('change', toggleMenuChangeHandler);
+
+// links.forEach(function(link) {
+//     link.addEventListener('click', function() {
+//         const checkbox = document.getElementById('check-icon');
+//         if (checkbox instanceof HTMLInputElement) {
+//             checkbox.checked = false;
+//         }
+//     });
+// });
+
+
+</script>

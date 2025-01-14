@@ -1,0 +1,90 @@
+---
+import About from "../../components/widget/About.astro";
+import Hero from "../../components/widget/Hero.astro";
+import GridServices from "../../components/widget/GridServices.astro";
+import PowerOfMusic from "../../components/widget/PowerOfMusic.astro";
+import GalleryHome from "../../components/widget/GalleryHome.astro";
+import Prefooter from "../../components/widget/Prefooter.astro";
+import Illustrator from "../../components/widget/Illustrator.astro";
+
+interface Props {
+  es?: boolean;
+  en?: boolean;
+  itemsSlider: any;
+  linkBook: string;
+  titleAbout: string;
+  textAbout: string;
+  videoID: string;
+  textMayusAbout: string;
+  itemsServices: any;
+  textMayusBot: string;
+  imgGallery1: any;
+  imgGallery2: any;
+  imgGallery3: any;
+  imgGallery4: any;
+  imgPrefooter1: any;
+  imgPrefooter2: any;
+  imgPrefooter3: any;
+  imgPrefooter4: any;
+  imgPrefooter5: any;
+}
+
+const {
+  es,
+  en,
+  itemsSlider = [],
+  linkBook,
+  textAbout,
+  titleAbout,
+  videoID,
+  textMayusAbout,
+  itemsServices = [],
+  textMayusBot,
+  imgGallery1,
+  imgGallery2,
+  imgGallery3,
+  imgGallery4,
+  imgPrefooter1,
+  imgPrefooter2,
+  imgPrefooter3,
+  imgPrefooter4,
+  imgPrefooter5,
+} = Astro.props;
+---
+
+<main>
+  <Hero en={en} es={es} linkBook={linkBook} items={itemsSlider} />
+
+  <About
+    title={titleAbout}
+    text={textAbout}
+    videoID={videoID}
+    textMayus={textMayusAbout}
+  />
+
+  <GridServices en={en} es={es} items={itemsServices} />
+
+  <PowerOfMusic text={textMayusBot} />
+
+  <GalleryHome
+    en={en}
+    es={es}
+    imgOne={imgGallery1}
+    imgTwo={imgGallery2}
+    imgThree={imgGallery3}
+    imgFour={imgGallery4}
+  />
+
+  <Illustrator />
+
+  <Prefooter
+    en={en}
+    es={es}
+    linkBook={linkBook}
+    imgOne={imgPrefooter1}
+    imgTwo={imgPrefooter2}
+    imgThree={imgPrefooter3}
+    imgFour={imgPrefooter4}
+    imgFive={imgPrefooter5}
+  />
+</main>

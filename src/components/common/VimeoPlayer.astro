@@ -1,0 +1,57 @@
+---
+const { videoId } = Astro.props;
+
+const videoSource = "https://player.vimeo.com/video/" + videoId + "?controls=0&muted=1&playsinline=1&loop=1"
+---
+
+<div class="iframe-container">
+  <iframe src={videoSource} allow="fullscreen; picture-in-picture" allowfullscreen>
+  </iframe>
+</div>
+
+<style>
+  .iframe-container {
+    position: relative;
+    width: 100%; 
+    padding-top: 56.25%; 
+    overflow: hidden;
+    transform: scale(0.7);
+  }
+
+  .iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    border: none;
+  }
+</style>
+
+<script>
+  import Player from "@vimeo/player";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const iframe = document.querySelector("iframe");
+    const player = new Player(iframe);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            player
+              .play()
+              .catch((error) => console.error("Error al reproducir:", error));
+          } else {
+            player
+              .pause()
+              .catch((error) => console.error("Error al pausar:", error));
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(iframe);
+  });
+</script>

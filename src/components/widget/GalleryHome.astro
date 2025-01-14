@@ -1,0 +1,61 @@
+---
+import Container from "../ui/Container.astro";
+
+interface Props {
+  es?: boolean;
+  en?: boolean;
+  imgOne: any;
+  imgTwo: any;
+  imgThree: any;
+  imgFour: any;
+}
+
+const { en, es, imgOne, imgTwo, imgThree, imgFour } = Astro.props;
+---
+
+<Container data-section="gallery-home">
+  <div class="sticky top-[10vh]">
+    <h3
+      class="text-display-xxl text-black dark:text-white-light flex flex-col px-2 pt-[var(--p-section)] sm:px-[9.5rem] uppercase font-display -z-10 pb-8 sm:pb-32"
+    >
+      <span class="self-start text-ani">{es ? "Vive como" : en ? "Live how" : ""}</span>
+      <span class="self-end text-ani">{es ? "quieras!" : en ? "you want!" : ""}</span
+      >
+    </h3>
+  </div>
+  <div class="mt-10 sm:mt-[7rem] flex justify-end relative -z-20 sm:z-0">
+    <img
+      src={imgOne.url}
+      alt={imgOne.alt}
+      class="w-[32.25rem]"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="mt-[var(--p-section)] flex justify-start relative -z-20 sm:z-0">
+    <img
+      src={imgTwo.url}
+      alt={imgTwo.alt}
+      class="w-[32.25rem]"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="mt-[var(--p-section)] flex justify-center relative -z-20">
+    <img
+      src={imgThree.url}
+      alt={imgThree.alt}
+      class="w-[32.25rem]"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="mt-[var(--p-section)] flex justify-end relative">
+    <img
+      src={imgFour.url}
+      alt={imgFour.alt}
+      class="w-[32.25rem] last-image"
+      loading="lazy"
+    />
+  </div>
+</Container>

@@ -1,0 +1,38 @@
+---
+const { text, ...rest } = Astro.props;
+---
+
+<div {...rest}>
+  <p
+    class="text-display-md font-display uppercase text-black dark:text-white-light text-splide-char sm:w-[61rem] text-bleeding text-mayus"
+  >
+    {text}
+  </p>
+  <slot />
+</div>
+
+<style>
+
+  .text-bleeding:global(.text-bleeding .line) {
+    overflow: hidden;
+  }
+
+  .text-bleeding:global(.text-bleeding .line .char) {
+    display: inline-block;
+  }
+
+  @media screen and (min-width: 768px) {
+    .text-bleeding:global(.text-bleeding .line) {
+      display: block;
+      transform: translateX(17.5rem);
+      overflow: hidden;
+    }
+
+    .text-bleeding:global(
+        .text-bleeding .line:nth-child(1),
+        .text-bleeding .line:nth-child(2)
+      ) {
+      transform: translateX(10.5rem) !important;
+    }
+  }
+</style>

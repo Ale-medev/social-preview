@@ -1,22 +1,181 @@
+---
+import Header from "../components/widget/Header.astro";
+import Footer from "../components/widget/Footer.astro";
+import "@splidejs/splide/dist/css/splide.min.css";
+import { ClientRouter } from "astro:transitions";
+
+interface Props {
+  es?: boolean;
+  en?: boolean;
+  linkBook: string;
+  tel: string;
+  email: string;
+  facebook?: string;
+  instagram?: string;
+  links: any;
+}
+
+const { es, en, linkBook, tel, email, instagram, facebook, links } =
+  Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang={es ? "es" : en ? "en" : ""}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=melodrama@400,600&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro Basics</title>
+    <ClientRouter />
+  </head>
+  <body class="dark bg-white-light dark:bg-black-light">
+    <Header
+      variant="light"
+      en={en}
+      es={es}
+      linkBook={linkBook}
+      links={links}
+      tel={tel}
+      email={email}
+      instagram={instagram}
+      facebook={facebook}
+    />
+
+    <slot />
+
+    <Footer
+      en={en}
+      es={es}
+      tel={tel}
+      email={email}
+      instagram={instagram}
+      facebook={facebook}
+    />
+
+    <script src="../scripts/scrollAnimation.js"></script>
+  </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+<style is:global>
+  @import url("https://use.typekit.net/blq3xou.css");
+
+  :root {
+    --color-white-light: #ece5d5;
+    --color-white: #fff;
+    --color-black-light: #1c2126;
+    --color-black: #111414;
+    --color-primary: #be1824;
+    --color-grey-light: #f6f6f6;
+    --color-grey: #e7e7e7;
+    --color-grey-dark: #b0b0b0;
+
+    --font-body-xs: 1rem;
+    --font-body-sm: 1.15rem;
+    --font-body-md: 1.25rem;
+    --font-body-lg: 1.125rem;
+    --font-label-sm: 1rem;
+    --font-label-md: 1rem;
+    --font-display-sm: 1.5rem;
+    --font-display-md: 2rem;
+    --font-display-lg: 3rem;
+    --font-display-xl: 3rem;
+    --font-display-xxl: 3.75rem;
+
+    --h-btn: 3.25rem;
+    --h-header: 4.5rem;
+
+    --p-section: 4rem;
+    --space-main: 1rem;
+  }
+
+  html {
+    font-family: "Melodrama", system-ui, serif;
+    font-weight: 400;
+    font-size: calc(16px + (30 - 16) * ((100vw - 375px) / (767 - 375)));
+    color: var(--color-black);
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+  }
+
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    transition: background 500ms ease-in-out;
+    position: relative;
+  }
+
+  body.dark::before {
+    opacity: 0.5;
+    mix-blend-mode: difference;
+  }
+
+  body::before {
+    content: "";
+    transition: 500ms ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(/images/noise.webp);
+    background-repeat: repeat;
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  section,
+  footer {
+    position: relative;
+  }
+
+  ::selection {
+    background-color: #f3404d;
+    color: white;
+  }
+
+  ::-moz-selection {
+    background-color: #f3404d;
+    color: white;
+  }
+
+  .container-main {
+    max-width: 1440px;
+    padding-right: var(--space-main);
+    padding-left: var(--space-main);
+    margin: 0 auto;
+  }
+
+  @media screen and (min-width: 768px) {
+    :root {
+      --font-body-lg: 1.5rem;
+      --font-label-md: 1.125rem;
+      --font-display-sm: 2.25rem;
+      --font-display-md: 3.375rem;
+      --font-display-lg: 6.25rem;
+      --font-display-xl: 7.5rem;
+      --font-display-xxl: 12.5rem;
+      --space-main: 1.5rem;
+      --p-section: 7.5rem;
+
+      --h-header: 7.625rem;
+    }
+
+    html {
+      font-size: calc(9px + (16 - 9) * ((100vw - 768px) / (1440 - 768)));
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    html {
+      font-size: 16px;
+      /* font-size: calc(16px + (32 - 16) * ((100vw - 1440px) / (2880 - 1440))); */
+    }
+  }
 </style>

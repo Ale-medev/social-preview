@@ -1,0 +1,38 @@
+---
+const {
+  variant = "primary",
+  target,
+  class: className = "",
+  label,
+  ...rest
+} = Astro.props;
+
+const variants = {
+  primary:
+    "text-white-light bg-black dark:text-black dark:bg-white-light border dark:border-white-light border-black",
+  secondary: "text-white-light bg-black dark:text-black dark:bg-white-light border dark:border-black border-white-light",
+  secondaryAlt: "text-white-light bg-white-light/15 border border-white-light backdrop-blur-sm",
+};
+
+const buttonStyle =
+  "group text-label-md uppercase inline-flex items-center justify-center px-8 py-4 rounded-full focus:outline-none  border";
+---
+
+<a
+  {...target ? { target: target, rel: "noopener noreferrer" } : {}}
+  class={`${variants[variant]} ${className} ${buttonStyle} w-max`}
+  {...rest}
+>
+  <div class="relative overflow-hidden">
+    <span
+      class="group-hover:-translate-y-7 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)] block"
+    >
+      {label}
+    </span>
+    <span
+      class="absolute top-7 left-0 group-hover:top-0 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)]"
+    >
+      {label}
+    </span>
+  </div>
+</a>

@@ -1,0 +1,96 @@
+---
+import IconSocalMedia from "../common/IconSocalMedia.astro";
+
+interface Props {
+  es?: boolean;
+  en?: boolean;
+  tel: string;
+  email: string;
+  facebook?: string;
+  instagram?: string;
+}
+
+const { email, tel, en, es, facebook, instagram } = Astro.props;
+---
+
+<footer
+  class="sm:min-h-screen container-main pt-[calc(var(--p-section)*2)] pb-8 sm:pb-12 text-black dark:text-white-light flex flex-wrap gap-20 sm:gap-32"
+  data-section="footer"
+>
+  <div
+    class="font-display text-[1.75rem] sm:text-[3.75rem] text-center flex flex-col font-thin gap-2 sm:gap-5 w-full"
+  >
+    <span class="word">{es ? "Horario" : en ? "Hours" : ""}</span>
+    <span class="uppercase text-display-xl word inline-block"
+      >{es ? "Todos los días" : en ? "Open daily"  : ""}
+    </span>
+    <span class="word"
+      >{es ? "De 13:00 a 02:00 AM" : en ? "From 1:00 PM to 2:00 AM" : ""}</span
+    >
+  </div>
+
+  <div
+    class="flex flex-col items-center sm:items-end text-center sm:text-start sm:flex-row text-label-md sm:justify-between gap-10 sm:gap-6 w-full block-links"
+  >
+    <div class="w-10/12 sm:w-5/12 sm:pr-32 sm:flex sm:items-end">
+      <a
+        class="text-display-sm font-display uppercase tracking-normal leading-tight hover:text-primary transition"
+        href="https://www.google.com/maps/place/SOCIAL+POINT+IBIZA/@38.8996076,1.3850784,17z/data=!3m1!4b1!4m6!3m5!1s0x129947c1436231d5:0xfc09c451d78d004!8m2!3d38.8996076!4d1.3850784!16s%2Fg%2F11jbp4t2pm?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D"
+        target="_blank"
+        rel="noopener">Carretera de San José km2, 07817, Ibiza</a
+      >
+    </div>
+
+    <div
+      class="flex flex-col sm:flex-row sm:content-end flex-wrap gap-2 sm:w-3/12 sm:pb-2 block-links sm:pl-8"
+    >
+      <a class="block hover:text-primary transition" href={`mailto:${email}`}>{email}</a>
+      <span class="block"
+        >Tel. {
+          tel && (
+            <a class="hover:text-primary transition" href={`tel:${tel.replace(/\D/g, "")}`}>
+              {tel}
+            </a>
+          )
+        }</span
+      >
+    </div>
+
+    <div
+      class="flex sm:content-end flex-wrap gap-2 sm:w-4/12 sm:pb-2 sm:justify-end block-links"
+    >
+      <div class="w-full flex justify-center sm:justify-end pb-5 gap-5">
+        <a href={facebook} target="_blank" rel="noopener">
+          <IconSocalMedia
+            icon="face"
+            class="text-black dark:text-white-light w-[2.125rem] hover:text-primary transition"
+          />
+        </a>
+        <a href={instagram} target="_blank" rel="noopener">
+          <IconSocalMedia
+            icon="insta"
+            class="text-black dark:text-white-light w-[2.125rem] hover:text-primary transition"
+          />
+        </a>
+      </div>
+
+      <div class="flex w-full justify-center sm:justify-end">
+        <a class="mr-8 hover:text-primary" href="/politicas-privacidad"
+          >{es ? "Política de Privacidad" : en ? "Privacy policy" : ""}</a
+        >
+        <a class="hover:text-primary transition" href="/cookies">Cookies</a>
+      </div>
+
+      <div class="w-full inline-flex justify-center sm:justify-end">
+        <span class="text-black/60 dark:text-white-light/60"
+          >{es ? "Desarrollo por" : en ? "Development by " : ""}</span
+        ><a
+          class="ml-2 text-black/60 dark:text-white-light/60 hover:text-black hover:dark:text-white-light"
+          target="_blank"
+          rel="noopener"
+          href={`https://daraproject.com/${en ? "en" : ""}`}>DaraProject</a
+        >
+      </div>
+    </div>
+  </div>
+</footer>

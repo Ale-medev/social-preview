@@ -1,0 +1,33 @@
+---
+import TextMayus from "../ui/TextMayus.astro";
+import VimeoPlayer from "../common/VimeoPlayer.astro";
+
+const { title, text, videoID, textMayus } = Astro.props;
+---
+
+<section data-section="about">
+    <div
+    class="pt-[var(--p-section)] pb-[calc(var(--p-section)/2)] flex-col sm:flex-row flex gap-6 sm:gap-10 justify-between container-main"
+  >
+    <h2
+      class="sm:w-5/12 text-display-md font-display uppercase text-black dark:text-white-light text-splide-line about-title"
+    >
+      {title}
+    </h2>
+    <p
+      class="sm:w-[72%] text-black dark:text-white-light text-body-lg about-text"
+    >
+      {text}
+    </p>
+  </div>
+
+  <VimeoPlayer videoId={videoID} />
+
+  </div>
+
+  <TextMayus
+    class="py-[var(--p-section)] container-main"
+    text={textMayus}
+  />
+</section>
+
