@@ -44,14 +44,11 @@
     imgLoaded
       .on("fail", (instance) => {
         doneLoader();
-        containerAll.classList.remove(`overflow-hidden`);
       })
       .on("done", (instance) => {
         doneLoader();
-        containerAll.classList.remove(`overflow-hidden`);
       })
       .on("progress", (instance) => {
-        containerAll.classList.add(`overflow-hidden`);
         LoadedCount++;
         let percent = Math.floor((LoadedCount / imgs) * 100);
         headleLoading(percent);
