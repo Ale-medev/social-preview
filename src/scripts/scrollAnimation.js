@@ -1,5 +1,3 @@
-console.log("Ok");
-
 import SplitType from "split-type";
 
 import { gsap } from "gsap";
@@ -64,6 +62,10 @@ document.addEventListener("astro:page-load", () => {
       case "footer":
         const footer = footerSection(el);
         sections.push(footer);
+        break;
+      case "experience-features":
+        const experienceFeatures = experienceFeaturesSection(el);
+        sections.push(experienceFeatures);
         break;
     }
   }
@@ -197,10 +199,10 @@ document.addEventListener("astro:page-load", () => {
       const items = el.querySelectorAll(".item-service");
 
       items.forEach((item) => {
-        gsap.from(item, {
+        gsap.to(item, {
           duration: 0.8,
-          y: 120,
-          autoAlpha: 0,
+          y: 0,
+          autoAlpha: 1,
           ease: "power3.out",
           scrollTrigger: {
             trigger: item,
@@ -215,10 +217,10 @@ document.addEventListener("astro:page-load", () => {
       goups.forEach((group) => {
         const items = group.querySelectorAll(".item-service");
 
-        gsap.from(items, {
+        gsap.to(items, {
           duration: 0.8,
-          y: 120,
-          autoAlpha: 0,
+          y: 0,
+          autoAlpha: 1,
           stagger: 0.15,
           ease: "power3.out",
           scrollTrigger: {
@@ -280,7 +282,7 @@ document.addEventListener("astro:page-load", () => {
       end: "bottom top",
       scrub: true,
     };
-    
+
     const desktopAnimations = [
       { target: ".img-ani-1", from: { y: "-54%" }, to: { y: "-1%" } },
       { target: ".img-ani-2", from: { y: "-135%" }, to: { y: "-185%" } },
@@ -288,25 +290,21 @@ document.addEventListener("astro:page-load", () => {
       { target: ".img-ani-4", from: { y: "-100%" }, to: { y: "-140%" } },
       { target: ".img-ani-5", from: { y: "-25%" }, to: { y: "-3%" } },
     ];
-    
+
     const mobileAnimations = [
       { target: ".img-ani-1", from: { y: "-30%" }, to: { y: "0%" } },
       { target: ".img-ani-2", from: { y: "-140%" }, to: { y: "-160%" } },
       { target: ".img-ani-3", from: { y: "-20%" }, to: { y: "-0%" } },
       { target: ".img-ani-5", from: { y: "-125%" }, to: { y: "-155%" } },
     ];
-    
+
     const animations = isMobile ? mobileAnimations : desktopAnimations;
-    
+
     animations.forEach(({ target, from, to }) => {
-      gsap.fromTo(
-        target,
-        from,
-        {
-          ...to,
-          scrollTrigger: scrollTriggerConfig,
-        }
-      );
+      gsap.fromTo(target, from, {
+        ...to,
+        scrollTrigger: scrollTriggerConfig,
+      });
     });
   }
 
@@ -348,6 +346,31 @@ document.addEventListener("astro:page-load", () => {
       start: "top 40%",
       end: "bottom top",
       animation: tl,
+    });
+  }
+
+  function experienceFeaturesSection(el){
+
+    new SplitType(".line-splide", { types: "lines", tagName: "span" });
+
+    const triggerItem = el.querySelectorAll('.trigger-ani')
+
+    triggerItem.forEach((item) => {
+
+      const lines = item.querySelectorAll(".line-splide .line");
+
+      gsap.from(lines, {
+        duration: 0.8,
+        y: "1.2rem",
+        autoAlpha: 0,
+        ease: "power3.out",
+        stagger: '0.2',
+        scrollTrigger: {
+          trigger: item,
+          start: "top 75%",
+          end: "bottom 20%",
+        },
+      });
     });
   }
 

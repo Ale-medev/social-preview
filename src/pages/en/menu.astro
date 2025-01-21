@@ -1,0 +1,45 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import HeroSecondary from "../../components/widget/HeroSecondary.astro";
+import { CONTACT_INFO } from "../../content/content";
+import { NAVIGATION } from "../../content/navigation";
+import { HERO_MENU, IMAGES_MENU } from "../../content/menuContent";
+import ContentMenu from "../../components/widget/ContentMenu.astro";
+
+const es = false;
+const en = true;
+const linkBook = "/en/booking/";
+---
+
+<Layout
+  metaTitle="Ibiza Social Point - Menu"
+  en={en}
+  es={es}
+  linkBook={linkBook}
+  tel={CONTACT_INFO.tel}
+  email={CONTACT_INFO.email}
+  instagram={CONTACT_INFO.instagram}
+  facebook={CONTACT_INFO.facebook}
+  links={NAVIGATION}
+  variant="toggle"
+  toggleLanguage="/menu/"
+>
+  <HeroSecondary
+    title={HERO_MENU.title}
+    text={HERO_MENU.text}
+    en={en}
+    es={es}
+  />
+  <ContentMenu
+    en={en}
+    es={es} 
+    imageStarters={IMAGES_MENU.imageStarter}
+    imageGrilled={IMAGES_MENU.imageGrilled}
+    imageVeggies={IMAGES_MENU.imageVeggies}
+    imageSides={IMAGES_MENU.imageSides}
+    imageDesserts={IMAGES_MENU.imageDesserts}
+    imageWivesWhite={IMAGES_MENU.imageWivesWhite}
+    imageWivesReds={IMAGES_MENU.imageWivesRed}
+    imageCocktails={IMAGES_MENU.imageCocktails}
+  />
+</Layout>

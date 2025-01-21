@@ -1,0 +1,7 @@
+---
+const {class: className = "",} = Astro.props;
+---
+
+<div class={`${className} w-full grid gap-2 sm:gap-5 group-container`}>
+  <slot />
+</div>

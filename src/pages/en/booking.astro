@@ -1,0 +1,35 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import HeroSecondary from "../../components/widget/HeroSecondary.astro";
+import { CONTACT_INFO } from "../../content/content";
+import { NAVIGATION } from "../../content/navigation";
+import { HERO_BOOKING } from "../../content/bookingContent";
+import BookingForm from "../../components/widget/BookingForm.astro";
+
+const es = false;
+const en = true;
+const linkBook = "#";
+---
+
+<Layout
+  metaTitle="Ibiza Social Point - Booking"
+  en={en}
+  es={es}
+  linkBook={linkBook}
+  tel={CONTACT_INFO.tel}
+  email={CONTACT_INFO.email}
+  instagram={CONTACT_INFO.instagram}
+  facebook={CONTACT_INFO.facebook}
+  links={NAVIGATION}
+  variant="toggle"
+  toggleLanguage="/reservas/"
+>
+  <HeroSecondary
+    title={HERO_BOOKING.title}
+    text={HERO_BOOKING.text}
+    en={en}
+    es={es}
+  />
+
+  <BookingForm en={en} es={es} />
+</Layout>

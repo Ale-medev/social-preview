@@ -2,16 +2,19 @@
 import IconDarkMode from "../common/IconDarkMode.astro";
 import IconLightMode from "../common/IconLightMode.astro";
 ---
-<label
-  class="inline-flex items-center relative cursor-pointer"
->
+
+<label class="inline-flex items-center relative cursor-pointer" transition:persist>
   <input class="peer hidden" id="toggle-theme" type="checkbox" />
   <div
-    class="relative w-[5.75rem] border peer-checked:border-black h-[var(--h-btn)] border-white-light peer-checked:bg-white-light/35 bg-white-light/15 rounded-full after:absolute after:content-[''] after:w-10 after:h-10 peer-checked:after:bg-black after:bg-white-light after:rounded-full after:top-[0.3125rem] peer-checked:after:left-[2.84rem] active:after:w-[var(--h-btn)] after:left-[5.3125rem] after:translate-x-[-100%] after:duration-300 backdrop-blur-sm"
+    class="relative w-[5rem] sm:w-[5.75rem] border peer-checked:border-black h-[var(--h-btn)] border-white-light peer-checked:bg-white-light/35 bg-white-light/15 rounded-full after:absolute after:content-[''] after:w-8 sm:after:w-10 after:h-8 sm:after:h-10 peer-checked:after:bg-black after:bg-white-light after:rounded-full after:top-[0.3125rem] peer-checked:after:left-[2.45rem] sm:peer-checked:after:left-[2.84rem] active:after:w-[var(--h-btn)] after:left-[4.48rem] sm:after:left-[5.3125rem] after:translate-x-[-100%] after:duration-300 backdrop-blur-sm"
   >
   </div>
-  <IconLightMode class="fill-white-light absolute w-7 h-7 left-[0.75rem]" />
-  <IconDarkMode class="fill-black absolute w-7 h-7 right-[0.75rem]" />
+  <IconLightMode
+    class="fill-white-light absolute w-6 sm:w-7 h-6 sm:h-7 left-[0.75rem]"
+  />
+  <IconDarkMode
+    class="fill-black absolute w-6 sm:w-7 h-6 sm:h-7 right-[0.75rem]"
+  />
 </label>
 
 <script>
@@ -27,9 +30,15 @@ import IconLightMode from "../common/IconLightMode.astro";
     } else {
       body.classList.add("dark");
     }
+
+    if (localStorage.getItem("switchActive") === null) {
+      body.classList.add("dark");
+      themeSwitch.checked = false;
+      console.log('ejecuta')
+    }
   }
 
-  document.addEventListener("astro:after-swap", applyTheme);
+  document.addEventListener('astro:after-swap', applyTheme);
   applyTheme();
 
   document.addEventListener("astro:page-load", () => {
@@ -38,9 +47,9 @@ import IconLightMode from "../common/IconLightMode.astro";
     ) as HTMLInputElement;
     const body = document.body;
 
-    themeSwitch.addEventListener('click', () => {
-      localStorage.setItem('switchActive', 'active');
-    })
+    themeSwitch.addEventListener("click", () => {
+      localStorage.setItem("switchActive", "active");
+    });
 
     themeSwitch.addEventListener("change", () => {
       if (themeSwitch.checked) {
@@ -56,6 +65,20 @@ import IconLightMode from "../common/IconLightMode.astro";
     console.log(localStorage.getItem("switchActive"));
   });
 </script>
+
+<!-- <script>
+
+  document.addEventListener("astro:after-swap", () => {
+    const body = document.body;
+    const themeSwitch = document.getElementById("toggle-theme");
+  
+    if (localStorage.getItem("switchActive") === null) {
+      body.classList.add("dark");
+      themeSwitch.checked = false;
+      console.log('ejecuta')
+    }
+  })
+  </script> -->
 
 <!-- <script>
   document.addEventListener("astro:page-load", () => {

@@ -1,0 +1,45 @@
+---
+interface Props {
+  es?: boolean;
+  en?: boolean;
+  items: any;
+}
+
+const { es, en, items = [] } = Astro.props;
+---
+
+<section
+  class="flex pt-12 pb-[calc(var(--p-section)*2)]"
+  data-section="experience-features"
+>
+  <div class="hidden sm:block md:w-5/12 sm:6/12">
+    {
+      items.map(({ image }) => (
+        <div class="sticky top-0">
+          <img
+            class="h-screen w-full object-cover"
+            src={image.src}
+            alt={es ? image.alt.es : en ? image.alt.en : ""}
+          />
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="sm:w-6/12">
+    {
+      items.map(({ title, text }) => (
+        <div class="py-20 sm:h-screen max-w-[720px] px-14 sm:px-20 text-center text-black dark:text-white-light flex items-center">
+          <div class="flex flex-col gap-8 justify-center trigger-ani">
+            <h3 class="text-display-md font-display uppercase line-splide ">
+              {es ? title.es : en ? title.en : ""}
+            </h3>
+            <p class="text-body-lg line-splide">
+              {es ? text.es : en ? text.en : ""}
+            </p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>

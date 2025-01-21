@@ -1,0 +1,87 @@
+---
+import { PriceList } from "./jsx/PriceList";
+import MenuImage from "./MenuImage.astro";
+
+interface Props {
+  id?: string;
+  variant?: string;
+  es?: boolean;
+  en?: boolean;
+  image: any;
+  items: any;
+  itemsColTwo?: any;
+  twoCol?: boolean;
+  heightMax?: boolean;
+}
+
+const variants = {
+  singleValue: "",
+  doubleValue: "",
+  singleValueAlt: "sm:grid sm:grid-cols-2 sm:gap-[7.5rem] items-center",
+};
+
+const {
+  en,
+  es,
+  id,
+  image,
+  heightMax,
+  variant = "singleValue",
+  items = [],
+  itemsColTwo = [],
+} = Astro.props;
+
+const twoCol = variant === "singleValue" ? true : Astro.props.twoCol;
+---
+
+<div id={id} class={`pb-[var(--p-section)] ${variants[variant]}`}>
+  <MenuImage image={image} en={en} es={es} heightMax={heightMax}/>
+
+  <div
+    class={`relative ${(variant === "singleValue" || variant === "doubleValue") && "mt-[-5rem] sm:mt-[-13.125rem] container-main"} ${variant === "singleValueAlt" ? "max-w-[41.25rem] px-[var(--space-main)] sm:px-0 sm:pt-16 sm:pb-24 mt-[-5rem] sm:mt-0" : ""} ${variant === "doubleValue" && "sm:grid sm:grid-cols-2 flex flex-col gap-10 sm:gap-[7.5rem]"}`}
+  >
+    {
+      items && Array.isArray(items) && items.length > 0 && (
+        <div class="flex flex-col gap-10 sm:gap-14">
+          {items.map(({ dataSheet, title }) => (
+            <div>
+              <h2 class="text-display-md font-display uppercase text-black dark:text-white-light mb-8">
+                {es ? title.es : en ? title.en : ""}
+              </h2>
+              <PriceList
+                en={en}
+                es={es}
+                client:load
+                dataSheet={dataSheet}
+                twoCol={twoCol}
+              />
+            </div>
+          ))}
+        </div>
+      )
+    }
+    {
+      variant === "doubleValue" &&
+        itemsColTwo &&
+        Array.isArray(itemsColTwo) &&
+        itemsColTwo.length > 0 && (
+          <div class="flex flex-col gap-10 sm:gap-14">
+            {itemsColTwo.map(({ dataSheet, title }) => (
+              <div>
+                <h2 class="text-display-md font-display uppercase text-black dark:text-white-light mb-8">
+                  {es ? title.es : en ? title.en : ""}
+                </h2>
+                <PriceList
+                  en={en}
+                  es={es}
+                  client:load
+                  dataSheet={dataSheet}
+                  twoCol={twoCol}
+                />
+              </div>
+            ))}
+          </div>
+        )
+    }
+  </div>
+</div>

@@ -33,13 +33,13 @@ export default {
 			fontSize: {
 				'body-xs': ['var(--font-body-xs)', {
 					lineHeight: '1.5em',
-					letterSpacing: '0em',
+					letterSpacing: '.03em',
 					fontWeight: '400',
 				}],
 
 				'body-sm': ['var(--font-body-sm)', {
 					lineHeight: '1.5em',
-					letterSpacing: '0em',
+					letterSpacing: '0.01em',
 					fontWeight: '400',
 				}],
 

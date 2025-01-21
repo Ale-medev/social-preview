@@ -1,0 +1,41 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import HeroSecondary from "../../components/widget/HeroSecondary.astro";
+import ExperienceList from "../../components/widget/ExperienceList.astro";
+import { CONTACT_INFO } from "../../content/content";
+import { NAVIGATION } from "../../content/navigation";
+import {EXPERIENCES_HERO, EXPERIENCES_ELEMENTS } from '../../content/experiences'
+
+
+const es = true;
+const en = false;
+const linkBook = "/reservas/";
+---
+
+<Layout
+  en={en}
+  es={es}
+  metaTitle="Ibiza Social Point - Experiencias"
+  linkBook={linkBook}
+  tel={CONTACT_INFO.tel}
+  email={CONTACT_INFO.email}
+  instagram={CONTACT_INFO.instagram}
+  facebook={CONTACT_INFO.facebook}
+  links={NAVIGATION}
+  variant="toggle"
+  toggleLanguage="/en/experiences/"
+>
+  <HeroSecondary
+    title={EXPERIENCES_HERO.title}
+    text={EXPERIENCES_HERO.text}
+    en={en}
+    es={es}
+    alignCenter
+  />
+
+  <ExperienceList
+    en={en}
+    es={es}
+    items={EXPERIENCES_ELEMENTS}
+  />
+</Layout>

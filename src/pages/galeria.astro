@@ -1,0 +1,22 @@
+---
+import Layout from "../layouts/Layout.astro";
+import HeroSecondary from "../components/widget/HeroSecondary.astro";
+import { CONTACT_INFO} from "../content/content";
+import { NAVIGATION } from "../content/navigation"
+import { GALLERY_TITLE, GALLERY_ITEMS } from "../content/galleryContent";
+import GalleryGrid from "../components/widget/GalleryGrid.astro";
+
+
+
+const es = true;
+const en = false;
+const linkBook = "#";
+
+---
+<Layout en={en} es={es} linkBook={linkBook} tel={CONTACT_INFO.tel} email={CONTACT_INFO.email} instagram={CONTACT_INFO.instagram} facebook={CONTACT_INFO.facebook} links={NAVIGATION} variant="toggle" toggleLanguage="/en/gallery/">
+    <HeroSecondary title={GALLERY_TITLE.title} en={en} es={es} alignCenter />
+    <GalleryGrid 
+        en={en} es={es}
+        gallery={GALLERY_ITEMS}
+    />
+</Layout>

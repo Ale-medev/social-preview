@@ -1,0 +1,41 @@
+---
+import IconLanguage from "../common/IconLanguage.astro";
+
+interface Props {
+  es?: boolean;
+  en?: boolean;
+  linkToggle: string;
+}
+
+const { en, es, linkToggle } = Astro.props;
+---
+
+<div class="dropdown inline-block relative text-label-md uppercase group">
+  <button
+    class=" text-black dark:text-white-light py-4 px-1 sm:px-2 rounded inline-flex items-center group-hover:bg-black-light/10 dark:group-hover:bg-white-light/20 group-hover:backdrop-blur-sm"
+  >
+    <IconLanguage class="w-4 sm:w-[1.1875rem] mr-1" />
+    <span class="mr-1">{es ? "ES" : en ? "EN" : "" }</span>
+    <svg
+      class="fill-current w-3 sm:h-4 h-3 sm:w-4"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      ><path
+        d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+      ></path>
+    </svg>
+  </button>
+  <ul class="dropdown-menu absolute hidden pt-1 w-full">
+    <li class="">
+      <a
+        class="rounded bg-black-light dark:bg-white-light dark:text-black text-white-light dark:hover:bg-white-light/90 hover:bg-black-light/90  py-4 px-4 block whitespace-no-wrap text-center backdrop-blur-sm"
+        href={linkToggle} >{es ? "EN" : en ? "ES" : "" }</a>
+    </li>
+  </ul>
+</div>
+
+<style>
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+</style>

@@ -1,0 +1,30 @@
+---
+interface Props {
+  es?: boolean;
+  en?: boolean;
+  image: {
+    src?: string,
+    alt?: string,
+    altEn?: string,
+  }
+  heightMax?: boolean,
+}
+
+const { en, es, image, heightMax } = Astro.props;
+---
+<img src={image.src} alt={es ? image.alt : en ? image.altEn : ""} class={`ani-fade img-menu object-cover w-full ${heightMax ? 'h-[30rem] sm:h-[40.75rem] imgAlt' : 'h-[30rem] sm:h-[40.75rem]'}`} loading="lazy">
+
+
+<style is:global>
+    .img-menu {
+        -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-size: 100% 100%;
+        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+        mask-repeat: no-repeat;
+        mask-size: 100% 100%;
+    }
+    .img-menu.imgAlt{
+      max-height: -webkit-fill-available
+    }
+</style>

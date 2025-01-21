@@ -1,0 +1,53 @@
+---
+import { EXPERIENCES_ELEMENTS } from "../../content/experiences";
+import Layout from "../../layouts/Layout.astro";
+import { CONTACT_INFO, PREFOOTER_IMGS } from "../../content/content";
+import { NAVIGATION } from "../../content/navigation";
+import PostExperiences from "../../layouts/template/PostExperiences.astro";
+
+const es = true;
+const en = false;
+const linkBook = "/reservas/";
+
+export async function getStaticPaths() {
+  return EXPERIENCES_ELEMENTS.flatMap(({ slug, page }) => [
+    {
+      params: { slug: slug.es },
+      props: {
+        page: page,
+        slug,
+      },
+    },
+  ]);
+}
+const { page, slug } = Astro.props;
+---
+
+<Layout
+  en={en}
+  es={es}
+  metaTitle={`Ibiza Social Point - ${slug.es}`}
+  linkBook={linkBook}
+  tel={CONTACT_INFO.tel}
+  email={CONTACT_INFO.email}
+  instagram={CONTACT_INFO.instagram}
+  facebook={CONTACT_INFO.facebook}
+  links={NAVIGATION}
+  variant="toggle"
+  toggleLanguage={`/en/experiences/${slug.en}/`}
+>
+  <PostExperiences
+    en={en}
+    es={es}
+    title={page.title}
+    text={page.text}
+    image={page.image}
+    items={page.features}
+    linkBook={linkBook}
+    imgPrefooter1={PREFOOTER_IMGS.image1}
+    imgPrefooter2={PREFOOTER_IMGS.image2}
+    imgPrefooter3={PREFOOTER_IMGS.image3}
+    imgPrefooter4={PREFOOTER_IMGS.image4}
+    imgPrefooter5={PREFOOTER_IMGS.image5}
+  />
+</Layout>

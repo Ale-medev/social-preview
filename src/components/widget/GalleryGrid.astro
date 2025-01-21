@@ -1,0 +1,324 @@
+---
+import IconArrow from "../common/IconArrow.astro";
+import Container from "../ui/Container.astro";
+import ImageGallery from "../ui/ImageGallery.astro";
+import GroupGalleryItems from "../ui/GroupGalleryItems.astro";
+interface Props {
+  es?: boolean;
+  en?: boolean;
+  gallery: any;
+}
+
+const { en, es, gallery } = Astro.props;
+---
+
+<Container class="flex flex-col gap-2 sm:gap-5" data-section="grid-service">
+  <div
+    class="hidden sm:block h-[110vh] w-full fixed top-[100%] left-0 z-[60] overflow-hidden bg-white-light dark:bg-black-light img-modal"
+  >
+    <div
+      class="absolute h-screen z-[60] w-full bg-white-light dark:bg-black-light modal-overloy"
+    >
+    </div>
+
+    <div class="img-modal-cover">
+      <div class="img-modal-item img"></div>
+
+      <div
+        class="flex justify-between items-center font-display text-display-sm uppercase text-black dark:text-white-light mt-10 gap-14
+         sm:gap-44"
+      >
+        <button class="lightbox-button prev-button flex items-center gap-2">
+          <IconArrow class="w-10 rotate-180" /></button
+        >
+        <div class="modal-item closeLightBoxItem">
+          <p class="modal-text link-style cursor-pointer">Close</p>
+        </div>
+        <button class="lightbox-button next-button flex items-center gap-2">
+          <IconArrow class="w-10" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <GroupGalleryItems class="group-1">
+    {
+      gallery
+        .slice(0, 5)
+        .map(({ image }, index) => (
+          <ImageGallery
+            image={image}
+            item={`item-${index + 1}`}
+            en={en}
+            es={es}
+          />
+        ))
+    }
+  </GroupGalleryItems>
+
+  <GroupGalleryItems class="group-2">
+    {
+      gallery
+        .slice(5, 10)
+        .map(({ image }, index) => (
+          <ImageGallery
+            image={image}
+            item={`item-${index + 1}`}
+            en={en}
+            es={es}
+          />
+        ))
+    }
+  </GroupGalleryItems>
+
+  <GroupGalleryItems class="group-3">
+    {
+      gallery
+        .slice(10, 15)
+        .map(({ image }, index) => (
+          <ImageGallery
+            image={image}
+            item={`item-${index + 1}`}
+            en={en}
+            es={es}
+          />
+        ))
+    }
+  </GroupGalleryItems>
+
+  <GroupGalleryItems class="group-4">
+    {
+      gallery
+        .slice(15, 17)
+        .map(({ image }, index) => (
+          <ImageGallery
+            image={image}
+            item={`item-${index + 1}`}
+            en={en}
+            es={es}
+          />
+        ))
+    }
+  </GroupGalleryItems>
+</Container>
+
+<style is:global>
+  .group-1 {
+    grid-template-columns: 1fr;
+    grid-template-rows: 22rem 32rem 22em 22rem 36rem;
+    grid-template-areas:
+      "item-1"
+      "item-2"
+      "item-3"
+      "item-4"
+      "item-5";
+  }
+
+  .group-2 {
+    grid-template-columns: 1fr;
+    grid-template-rows: 22rem 32rem 22em 22rem 36rem;
+    grid-template-areas:
+      "item-1"
+      "item-2"
+      "item-3"
+      "item-4"
+      "item-5";
+  }
+
+  .group-3 {
+    grid-template-columns: 1fr;
+    grid-template-rows: 22rem 32rem 22em 22rem 36rem;
+    grid-template-areas:
+      "item-1"
+      "item-2"
+      "item-3"
+      "item-4"
+      "item-5";
+  }
+
+  .group-4 {
+    grid-template-columns: 1fr;
+    grid-template-rows: 32rem 22em;
+    grid-template-areas:
+      "item-1"
+      "item-2";
+  }
+
+  .item-1 {
+    grid-area: item-1;
+  }
+
+  .item-2 {
+    grid-area: item-2;
+  }
+
+  .item-3 {
+    grid-area: item-3;
+  }
+
+  .item-4 {
+    grid-area: item-4;
+  }
+
+  .item-5 {
+    grid-area: item-5;
+  }
+
+  .img-modal {
+    display: block;
+    position: fixed;
+    height: 110vh;
+    width: 100%;
+    top: 100%;
+    left: 0;
+    z-index: 55;
+    overflow: hidden;
+    transition: none;
+  }
+
+  .img-modal .img {
+    width: auto;
+    max-width: 1000px;
+    height: auto;
+    padding: 0 1.5rem;
+  }
+
+  .img-modal img {
+    width: 100%;
+    object-fit: cover;
+    height: 45vh;
+  }
+
+  .img-modal-cover {
+    margin-top: 4%;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  @media screen and (min-width: 768px) {
+    .group-1 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-rows: repeat(2, minmax(0, 19.5rem));
+      grid-template-areas:
+        "item-1 item-2 item-3 item-3"
+        "item-4 item-5 item-3 item-3";
+    }
+
+    .group-2 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-rows: repeat(2, minmax(0, 19.5rem));
+      grid-template-areas:
+        "item-1 item-2 item-2 item-3"
+        "item-4 item-2 item-2 item-5";
+    }
+
+    .group-3 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-rows: repeat(2, minmax(0, 19.5rem));
+      grid-template-areas:
+        "item-1 item-1 item-2 item-3"
+        "item-1 item-1 item-4 item-5";
+    }
+
+    .group-4 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: 19.5rem 19.5rem;
+      grid-template-areas:
+        "item-1 item-2"
+        "item-1 item-2";
+    }
+
+    .img-modal img {
+      height: 65vh;
+      width: auto;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+
+  gsap.set(".img-modal", { top: "100%" });
+  gsap.set(".modal-overloy", { top: "0" });
+
+  const tlLightBoxOpen = gsap.timeline({ paused: true });
+  tlLightBoxOpen.to(".img-modal", {
+    top: "-5%",
+    duration: 0.8,
+    ease: "power1",
+  });
+  tlLightBoxOpen.to(
+    ".modal-overloy",
+    { top: "-100%", duration: 0.7, ease: "power3.out" },
+    ">-0.1"
+  );
+  tlLightBoxOpen.set(".modal-overloy", { top: "100%" });
+
+  const tlLightBoxClose = gsap.timeline({ paused: true });
+  tlLightBoxClose.to(".img-modal", {
+    height: "0",
+    duration: 0.5,
+    ease: "power1.out",
+  });
+  tlLightBoxClose.set(".img-modal", { top: "100%" });
+  tlLightBoxClose.set(".img-modal", { height: "110vh" });
+
+  const openLightBoxItems = document.querySelectorAll(".openLightBoxItem");
+  const closeLightBoxItem = document.querySelector(".closeLightBoxItem");
+
+  openLightBoxItems.forEach((openLightBoxItem, index) => {
+    openLightBoxItem.addEventListener("click", function (e) {
+      tlLightBoxOpen.restart();
+
+      currentIndex = index;
+
+      const childElement = openLightBoxItem.firstElementChild;
+
+      const clonedChild = childElement.cloneNode(true);
+
+      const imgModalItem = document.querySelector(".img-modal-item");
+
+      imgModalItem.innerHTML = "";
+
+      imgModalItem.appendChild(clonedChild);
+    });
+  });
+
+  closeLightBoxItem.addEventListener("click", function (e) {
+    tlLightBoxClose.restart();
+  });
+
+  const images = document.querySelectorAll(".openLightBoxItem img");
+
+  const imageUrls = Array.from(images).map(
+    (img) => (img as HTMLImageElement).src
+  );
+
+  let currentIndex = 0;
+
+  const imgModalItem = document.querySelector(".img-modal-item");
+  const prevButton = document.querySelector(".prev-button");
+  const nextButton = document.querySelector(".next-button");
+
+  function updateImage(index) {
+    if (index >= 0 && index < imageUrls.length) {
+      currentIndex = index;
+      imgModalItem.innerHTML = `<img src="${imageUrls[currentIndex]}" alt="Image ${currentIndex + 1}" />`;
+    }
+  }
+
+  prevButton.addEventListener("click", () => {
+    const newIndex = currentIndex - 1;
+    updateImage(newIndex < 0 ? imageUrls.length - 1 : newIndex);
+  });
+
+  nextButton.addEventListener("click", () => {
+    const newIndex = currentIndex + 1;
+    updateImage(newIndex >= imageUrls.length ? 0 : newIndex);
+  });
+</script>

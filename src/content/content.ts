@@ -1,6 +1,5 @@
 import { responseData } from "../lib/api";
 import { responseContact } from "../lib/apiContact"
-// import { resHome, resContact } from "../lib/api";
 
 const data = responseData.data
 const contentData = data.page.cfHome;
@@ -22,8 +21,8 @@ const HERO_SLIDER = [
       en: "Book Now",
     },
     link: {
-      es: "reservar/",
-      en: "book/",
+      es: "/reservas/",
+      en: "en/booking/",
     },
   },
   {
@@ -40,8 +39,8 @@ const HERO_SLIDER = [
       en: "More info",
     },
     link: {
-      es: "#",
-      en: "#",
+      es: "/experiencias/cenaempresas/",
+      en: "/en/experiences/corporatedinner/",
     },
   },
   {
@@ -58,8 +57,8 @@ const HERO_SLIDER = [
       en: "More info",
     },
     link: {
-      es: "#",
-      en: "#",
+      es: "/experiencias/cumpleaños/",
+      en: "/en/experiences/birthday/",
     },
   },
   {
@@ -76,8 +75,8 @@ const HERO_SLIDER = [
       en: "More info",
     },
     link: {
-      es: "#",
-      en: "#",
+      es: "/experiencias/catering-privado/",
+      en: "/en/experiences/private-catering/",
     },
   },
 ] as const;
@@ -110,8 +109,8 @@ const GRID_SERVICE = [
         },
         img: contentData.itemService1.image.node.mediaItemUrl,
         link: {
-          es: "#",
-          en: "#"
+          es: "/experiencias/local/",
+          en: "/en/experiences/establishment/"
         },
       },
       {
@@ -125,8 +124,8 @@ const GRID_SERVICE = [
         },
         img: contentData.itemService2.image.node.mediaItemUrl,
         link: {
-          es: "#",
-          en: "#"
+          es: "/menu/",
+          en: "/en/menu/"
         },
       }, {
         title: {
@@ -139,8 +138,8 @@ const GRID_SERVICE = [
         },
         img: contentData.itemService3.image.node.mediaItemUrl,
         link: {
-          es: "#",
-          en: "#"
+          es: "/experiencias/bebidas/",
+          en: "/en/experiences/drinks/"
         },
       },
       {
@@ -154,8 +153,8 @@ const GRID_SERVICE = [
         },
         img: contentData.itemService4.image.node.mediaItemUrl,
         link: {
-          es: "#",
-          en: "#"
+          es: "/experiencias/catering-privado/",
+          en: "/en/experiences/private-catering/"
         },
       },
       {
@@ -169,8 +168,8 @@ const GRID_SERVICE = [
         },
         img: contentData.itemService5.image.node.mediaItemUrl,
         link: {
-          es: "#",
-          en: "#"
+          es: "/experiencias/cumpleaños/",
+          en: "/en/experiences/birthday/"
         },
       },
       {
@@ -184,8 +183,8 @@ const GRID_SERVICE = [
         },
         img: contentData.itemService6.image.node.mediaItemUrl,
         link: {
-          es: "#",
-          en: "#"
+          es: "/experiencias/cenaempresas/",
+          en: "/en/experiences/corporatedinner/"
         },
       },
       {
@@ -199,8 +198,8 @@ const GRID_SERVICE = [
         },
         img: contentData.itemService7.image.node.mediaItemUrl,
         link: {
-          es: "#",
-          en: "#"
+          es: "/experiencias/life-style/",
+          en: "/en/experiences/life-style/"
         },
       },
       {
@@ -214,8 +213,8 @@ const GRID_SERVICE = [
         },
         img: contentData.itemService8.image.node.mediaItemUrl,
         link: {
-          es: "#",
-          en: "#"
+          es: "/experiencias/arte/",
+          en: "/en/experiences/art/"
         },
       },
       {
@@ -229,8 +228,8 @@ const GRID_SERVICE = [
         },
         img: contentData.itemService9.image.node.mediaItemUrl,
         link: {
-          es: "#",
-          en: "#"
+          es: "/experiencias/musica/",
+          en: "/en/experiences/music/"
         },
       },
   ] as const

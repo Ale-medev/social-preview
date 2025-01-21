@@ -1,0 +1,17 @@
+---
+import Btn from "./Btn.astro";
+
+interface Props {
+  es?: boolean;
+  en?: boolean;
+}
+
+const { en, es } = Astro.props;
+---
+
+<div class={`sm:h-[var(--h-header)] mb-[var(--p-section)] sm:mb-0 flex items-center sm:justify-end px-[var(--space-main)] gap-4 sm:sticky sm:top-0 z-10 flex-wrap ${es ? 'sm:pr-[11.5rem] md:pr-[15.625rem]' : en ? 'sm:pr-[13rem] md:pr-[17rem]' : ""}`}>
+    <Btn href="#starters" variant="secondary" label={es ? 'Gastronomia' : en ? 'Gastronomy' : ''} class="ani-fade"/>
+    <Btn href="#wines" variant="secondary" label={es ? 'Vinos' : en ? 'Wines' : ''} class="ani-fade"/>
+    <Btn href="#coctails" variant="secondary" label="Coctails" class="ani-fade"/>
+    <Btn href="#" variant="secondary" label={es ? 'Menú PDF' : en ? 'Menu PDF' : ''} class="ani-fade"/>
+</div>

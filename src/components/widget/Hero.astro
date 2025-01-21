@@ -5,7 +5,6 @@ import Btn from "../ui/Btn.astro";
 interface Props {
   es?: boolean;
   en?: boolean;
-  linkBook: string;
   items: any;
 }
 
@@ -31,7 +30,7 @@ const { es, en, items = [] } = Astro.props;
                   </picture>
                   <div class="container-main text-center relative h-full w-full min-h-screen flex flex-col justify-center items-center gap-10 sm:gap-[3.75rem] z-10">
                     <div>
-                      <div class="flex justify-center items-center gap-6 font-display text-[1.5rem] text-white-light mb-8 font-thin tracking-[.10em]">
+                      <div class="flex justify-center items-center gap-6 font-display text-[1.5rem] text-white-light mb-8 font-thin tracking-[.10em] item-progress__container">
                         <span>{`${(index + 1).toString().padStart(2, "0")}`}</span>
                         <div class="item-progress">
                           <div class="item-progress__bar" />

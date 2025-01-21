@@ -1,0 +1,31 @@
+---
+import Container from "../ui/Container.astro";
+interface Props {
+  es?: boolean;
+  en?: boolean;
+}
+
+const { es, en } = Astro.props;
+---
+
+<Container class="flex flex-col sm:flex-row mt-6">
+  <div class="w-full sm:w-6/12 ani-fade order-2 sm:order-1">
+    <picture class="w-full">
+      <img
+        src="https://res.cloudinary.com/dwaxus96m/images/v1737404987/booking/booking.webp?_i=AA"
+        class="object-cover w-full sm:h-[75vh]"
+        alt={es ? "Foto Reserva" : en ? "Booking" : ""}
+      />
+    </picture>
+  </div>
+  <div class="w-full sm:w-6/12 max-w-[720px] ani-fade h-[800px] sm:h-auto order-1 sm:order-2">
+    <iframe
+      id="restaurante-socialpointibiza"
+      title="Reservas"
+      src={`https://www.covermanager.com/reservation/module_restaurant/restaurante-socialpointibiza/${es ? "spanish" : en ? "english" : ""}`}
+      frameborder="0"
+      height="100%"
+      width="100%"
+      onload="iFrameResize();"></iframe>
+  </div>
+</Container>

@@ -3,12 +3,13 @@ import Container from "../ui/Container.astro";
 import TextMayus from "../ui/TextMayus.astro";
 import IllustratorPowerOfMusic from "../common/IllustratorPowerOfMusic.astro";
 
-const {  text } = Astro.props;
+const { text } = Astro.props;
 ---
 
 <Container data-section="power-of-music">
-    <TextMayus class="pt-[var(--p-section)]" text={text}>
-        <IllustratorPowerOfMusic class="fill-black dark:fill-white-light w-[13.25rem] i-translate mx-auto sm:mx-0 mt-12 sm:mt-0" />
-    </TextMayus>
+  <TextMayus class="pt-[var(--p-section)]" text={text}>
+    <IllustratorPowerOfMusic
+      class="fill-black dark:fill-white-light w-[13.25rem] i-translate mx-auto sm:mx-0 mt-12 sm:mt-0"
+    />
+  </TextMayus>
 </Container>
-

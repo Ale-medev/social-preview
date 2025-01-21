@@ -1,0 +1,42 @@
+---
+interface Props {
+  es?: boolean;
+  en?: boolean;
+  title: {
+    es?: string;
+    en?: string;
+  };
+  text?: {
+    es?: string;
+    en?: string;
+  };
+  alignCenter?: boolean;
+}
+
+const { title, text, en, es, alignCenter } = Astro.props;
+---
+
+<div
+  class=`sm:pr-4 pt-[var(--h-header)] pb-[4.25rem] h-full ${alignCenter ? 'text-center m-auto sm:w-9/12' : 'sm:w-6/12 '}`
+>
+  <h1
+    class="font-display text-display-lg uppercase mb-8 sm:mb-14 mt-24 sm:mt-[20vh] w-full line-text-splide"
+  >
+    {es ? title.es : en ? title.en : ""}
+  </h1>
+  {
+    text && (text.es || text.en) && (
+      <p class="text-body-lg line-text-splide">
+        {es ? text.es : en ? text.en : ""}
+      </p>
+    )
+  }
+</div>
+
+<style is:global>
+  .line-text-splide .line {
+    width: 100%;
+  }
+</style>
+
+

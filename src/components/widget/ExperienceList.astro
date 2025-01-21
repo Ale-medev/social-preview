@@ -1,0 +1,95 @@
+---
+import IconArrow from "../common/IconArrow.astro";
+import Container from "../ui/Container.astro";
+
+interface Props {
+  es?: boolean;
+  en?: boolean;
+  items: any;
+}
+
+const { es, en, items = [] } = Astro.props;
+---
+
+<Container class="flex relative justify-between pt-10">
+  <div class="hidden sm:block sm:w-6/12 relative">
+    <div class="w-full sticky top-[15vh]">
+      <ul id="image-list" class="pb-[40rem]">
+        {
+          items.map((item, index) => (
+            <li class="pointer-events-none w-full absolute ani-fade">
+              <img
+                src={item.image}
+                class="image-hover h-[70vh] w-[55vh] object-cover block opacity-0"
+                data-index={index}
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="w-full sm:w-6/12 sm:py-[10rem]">
+    <ul
+      id="text-list"
+      class="text-black dark:text-white-light flex flex-col gap-10 sm:gap-16"
+    >
+      {
+        items.map(({ title, text, slug }, index) => (
+          <li class="hover-item cursor-pointer ani-fade" data-index={index}>
+            <h3 class="text-display-md font-display uppercase mb-5 sm:mb-8">
+              <a
+                class="flex justify-between group items-center gap-6"
+                href={
+                  es
+                    ? "/experiencias/" + slug.es + "/"
+                    : en
+                      ? slug.en + "/"
+                      : ""
+                }
+              >
+                <span class="group-hover:italic">
+                  {es ? title.es : en ? title.en : ""}
+                </span>
+                <IconArrow class="w-8 sm:w-16" />
+              </a>
+            </h3>
+            <p class="text-body-lg w-5/6">{es ? text.es : en ? text.en : ""}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Container>
+
+<script>
+  import gsap from "gsap";
+
+  document.addEventListener("astro:page-load", () => {
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+    if (!isMobile) {
+      const textItems = document.querySelectorAll("#text-list .hover-item");
+      const images = document.querySelectorAll("#image-list .image-hover");
+
+      let currentImage = images[0];
+      gsap.set(currentImage, { autoAlpha: 1 });
+
+      textItems.forEach((item) => {
+        const index = (item as HTMLElement).dataset.index;
+        const newImage = images[index];
+
+        item.addEventListener("mouseenter", () => {
+          if (newImage !== currentImage) {
+            gsap.to(currentImage, { autoAlpha: 0, duration: 0.3 });
+
+            gsap.to(newImage, { autoAlpha: 1, duration: 0.3 });
+
+            currentImage = newImage;
+          }
+        });
+      });
+    }
+  });
+</script>

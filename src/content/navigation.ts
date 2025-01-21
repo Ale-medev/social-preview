@@ -5,8 +5,8 @@ const NAVIGATION = [
       en: "Home",
     },
     href: {
-      es: "#",
-      en: "#",
+      es: "/",
+      en: "/en/",
     },
   },
   {
@@ -15,8 +15,8 @@ const NAVIGATION = [
       en: "Experiences",
     },
     href: {
-      es: "#",
-      en: "#",
+      es: "/experiencias/",
+      en: "/en/experiences/",
     },
   },
   {
@@ -25,8 +25,8 @@ const NAVIGATION = [
       en: "Menu",
     },
     href: {
-      es: "#",
-      en: "#",
+      es: "/menu/",
+      en: "/en/menu/",
     },
   },
   {
@@ -35,8 +35,8 @@ const NAVIGATION = [
       en: "Gallery",
     },
     href: {
-      es: "#",
-      en: "#",
+      es: "/galeria/",
+      en: "/en/gallery/",
     },
   },
   {
@@ -45,8 +45,8 @@ const NAVIGATION = [
       en: "Booking",
     },
     href: {
-      es: "#",
-      en: "#",
+      es: "/reservas/",
+      en: "/booking",
     },
   },
 ] as const;

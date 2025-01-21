@@ -1,0 +1,176 @@
+---
+import MenuSection from "../ui/MenuSection.astro";
+import NavigationMenu from "../ui/NavigationMenu.astro";
+interface Props {
+  es?: boolean;
+  en?: boolean;
+  imageStarters: any;
+  imageGrilled: any;
+  imageVeggies: any;
+  imageSides: any;
+  imageDesserts: any;
+  imageWivesWhite: any;
+  imageWivesReds: any;
+  imageCocktails: any;
+}
+
+const { en, es, imageCocktails, imageDesserts, imageGrilled, imageSides, imageStarters, imageVeggies, imageWivesReds, imageWivesWhite } = Astro.props;
+---
+
+<section>
+  <NavigationMenu en={en} es={es} />
+  <MenuSection
+    en={en}
+    es={es}
+    id="starters"
+    image={imageStarters}
+    items={[
+      {
+        title: { es: "Entradas", en: "Starters" },
+        dataSheet: "Starters",
+      },
+    ]}
+  />
+
+  <MenuSection
+    en={en}
+    es={es}
+    image={imageGrilled}
+    items={[
+      {
+        title: { es: "A LA BRASA", en: "GRILLED" },
+        dataSheet: "Grilled",
+      },
+    ]}
+  />
+
+  <div
+    class="text-body-lg text-black dark:text-white-light container-main mb-20"
+  >
+    {
+      es
+        ? "Contamos con opciones saludables de platos vegetarianos y veganos."
+        : en
+          ? "Healthy vegetarian and vegan options are available."
+          : ""
+    }
+  </div>
+
+  <MenuSection
+    en={en}
+    es={es}
+    image={imageVeggies}
+    items={[
+      {
+        title: { es: "Veggies", en: "Veggies" },
+        dataSheet: "Veggies",
+      },
+    ]}
+    variant="singleValueAlt"
+  />
+
+  <MenuSection
+    en={en}
+    es={es}
+    image={imageSides}
+    items={[
+      {
+        title: { es: "GUARNICIONES", en: "SIDES" },
+        dataSheet: "Sides",
+      },
+    ]}
+    itemsColTwo={[
+      {
+        title: { es: "SALSAS", en: "SAUCES" },
+        dataSheet: "Sauces",
+      },
+    ]}
+    variant="doubleValue"
+  />
+
+  <MenuSection
+    en={en}
+    es={es}
+    image={imageDesserts}
+    heightMax
+    items={[
+      {
+        title: { es: "POSTRES CASEROS", en: "Desserts" },
+        dataSheet: "Desserts",
+      },
+    ]}
+    variant="singleValueAlt"
+  />
+
+  <MenuSection
+    id="wines"
+    en={en}
+    es={es}
+    image={imageWivesWhite}
+    items={[
+      {
+        title: { es: "Blancos\nEspaña", en: "Spanish\nWhite" },
+        dataSheet: "Spanish-White-wines",
+      },
+      {
+        title: { es: "Cavas & Champagne", en: "Cavas & Champagne" },
+        dataSheet: "Cavas-&-Champagne",
+      },
+    ]}
+    itemsColTwo={[
+      {
+        title: { es: "Blancos Internacionales", en: "International White" },
+        dataSheet: "International-white-wines",
+      },
+      {
+        title: { es: "Rosado", en: "Rosé" },
+        dataSheet: "Rose",
+      },
+      {
+        title: { es: "SANGRÍAS", en: "SANGRÍAS" },
+        dataSheet: "Sangrias",
+      },
+    ]}
+    variant="doubleValue"
+  />
+
+  <MenuSection
+    en={en}
+    es={es}
+    image={imageWivesReds}
+    items={[
+      {
+        title: { es: "Tintos España", en: "Spanish Red Wines" },
+        dataSheet: "Spanish-Red-Wines",
+      },
+      {
+        title: { es: "VINOS DULCES", en: "Sweet wines" },
+        dataSheet: "Sweet-wines",
+      },
+    ]}
+    itemsColTwo={[
+      {
+        title: { es: "tintos argentina", en: "Argentine Red Wines" },
+        dataSheet: "Argentine-Red-Wines",
+      },
+      {
+        title: { es: "TINTOS INTERNACIONALES", en: "International red wines" },
+        dataSheet: "International-red-wines",
+      },
+    ]}
+    variant="doubleValue"
+  />
+
+  <MenuSection
+    id="coctails"
+    en={en}
+    es={es}
+    image={imageCocktails}
+    items={[
+      {
+        title: { es: "COCKTAILS", en: "COCKTAILS" },
+        dataSheet: "Cocktails",
+      },
+    ]}
+  />
+</section>

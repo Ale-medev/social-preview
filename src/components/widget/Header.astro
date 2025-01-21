@@ -2,8 +2,9 @@
 import Logo from "../common/Logo.astro";
 import Btn from "../ui/Btn.astro";
 import SwichDarkMode from "../ui/SwichDarkMode.astro";
-import ToggleMenu from "../common/ToggleMenu.astro";
-import IconMenu from "../common/IconMenu.astro"
+import ToggleMenu from "../ui/ToggleMenu.astro";
+import IconMenu from "../common/IconMenu.astro";
+import ToggleLanguage from "../ui/ToggleLanguage.astro";
 
 interface Props {
   es?: boolean;
@@ -15,26 +16,52 @@ interface Props {
   email: string;
   facebook?: string;
   instagram?: string;
+  toggleLanguage?: string;
 }
 
-const { en, es, variant = "light", linkBook, links = [], tel, email, facebook, instagram } = Astro.props;
+const {
+  en,
+  es,
+  variant = "light",
+  linkBook,
+  links = [],
+  tel,
+  email,
+  facebook,
+  instagram,
+  toggleLanguage,
+} = Astro.props;
 
 const variants = {
   light: "text-white-light",
   dark: "text-black",
   toggle: "text-black dark:text-white-light",
 };
+
+const isCurrentPage = (href: string) => {
+  let pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
+
+  if (!pathname.startsWith("/")) pathname = "/" + pathname;
+  if (!pathname.endsWith("/")) pathname += "/";
+
+  return (
+    pathname === href ||
+    (href !== "/" && pathname.startsWith(href) && pathname[href.length] === "/")
+  );
+};
 ---
 
 <header data-section="menu">
   <div class="h-[var(--h-header)] fixed w-full z-50 pointer-events-none">
     <div
-      class="flex justify-between w-full h-full items-center px-[var(--space-main)] md:px-32"
+      class="flex justify-between w-full h-full items-center px-[var(--space-main)] md:px-[5.5rem]"
     >
-      <div class="flex gap-4 bar-scroll pointer-events-auto"> 
+      <div class="flex gap-2 sm:gap-4 bar-scroll pointer-events-auto items-center">
         <ToggleMenu />
 
         <SwichDarkMode />
+
+        <ToggleLanguage en={en} es={es} linkToggle={toggleLanguage} />
       </div>
 
       <div class="hidden sm:block pointer-events-auto">
@@ -42,23 +69,32 @@ const variants = {
       </div>
     </div>
   </div>
-  <div class="absolute top-0 right-0 sm:right-[auto] sm:left-[50%] sm:translate-x-[-50%] p-4 sm:px-0 sm:py-9 z-20">
-    <a href="/">
-      <Logo class={`${variants[variant]} block h-11 sm:h-[4.25rem]`} />
+  <div
+    class="absolute top-0 right-0 sm:right-[auto] sm:left-[50%] sm:translate-x-[-50%] p-5 sm:px-0 sm:py-9 z-20"
+  >
+    <a href={es ? "/" : en ? "/en/" : ""}>
+      <Logo class={`${variants[variant]} block h-9 sm:h-[4.25rem]`} />
     </a>
   </div>
   <div
     class="fixed top-0 left-0 min-h-screen w-full z-40 bg-black-light flex will-change-transform overlay"
   >
-    <nav class="fixed top-0 left-0 min-h-screen w-full overlay-menu flex justify-between flex-col gap-8">
+    <nav
+      class="fixed top-0 left-0 min-h-screen w-full overlay-menu flex justify-between flex-col gap-8"
+    >
       {
         links && Array.isArray(links) && links.length > 0 && (
-          <ul class="flex flex-col justify-center text-center text-display-xl uppercase font-display grow pt-28 sm:pt-20 gap-3 sm:gap-1">
+          <ul class="flex flex-col justify-center text-center text-display-xl leading-[1.16em] uppercase font-display grow pt-28 sm:pt-20 gap-3 sm:gap-1">
             {links.map(({ href, label }) => (
-              <li class="menu-item active flex justify-center">
+              <li class="menu-item flex justify-center">
                 {href && (
                   <div class="relative overflow-hidden">
                     <a
+                      aria-current={
+                        isCurrentPage(es ? href.es : en ? href.en : "")
+                          ? "page"
+                          : null
+                      }
                       href={es ? href.es : en ? href.en : ""}
                       class="text-white-light inline-block translate-y-[112%]"
                     >
@@ -71,30 +107,45 @@ const variants = {
           </ul>
         )
       }
-       <div class="w-full grow-0 flex justify-center p-8 sm:p-10 gap-3 items-center text-label-md flex-wrap text-white-light submenu translate-y-4 opacity-0">
-        <span><a class="hover:text-primary transition" href={`mailto:${email}`}>{email}</a></span>
+      <div
+        class="w-full grow-0 flex justify-center p-8 sm:p-10 gap-3 items-center text-label-md flex-wrap text-white-light submenu translate-y-4 opacity-0"
+      >
+        <span
+          ><a class="hover:text-primary transition" href={`mailto:${email}`}
+            >{email}</a
+          ></span
+        >
         <span class="hidden sm:block"><IconMenu /></span>
         <span class="block">
           Tel. {
             tel && (
-              <a class="hover:text-primary transition" href={`tel:${tel.replace(/\D/g, "")}`}>
+              <a
+                class="hover:text-primary transition"
+                href={`tel:${tel.replace(/\D/g, "")}`}
+              >
                 {tel}
               </a>
             )
           }
         </span>
         <span><IconMenu /></span>
-        <span><a class="hover:text-primary transition" href={instagram}>Instagram</a></span>
+        <span
+          ><a class="hover:text-primary transition" href={instagram}
+            >Instagram</a
+          ></span
+        >
         <span class="hidden sm:block"><IconMenu /></span>
-        <span><a class="hover:text-primary transition" href={facebook}>Facebook</a></span>
+        <span
+          ><a class="hover:text-primary transition" href={facebook}>Facebook</a
+          ></span
+        >
       </div>
-    </div>
     </nav>
+  </div>
 </header>
 
 <style>
-
-  .overlay{
+  .overlay {
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
   }
 
@@ -118,17 +169,16 @@ const variants = {
     z-index: 0;
   }
 
-  .menu-item > div{
-    /* clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); */
+  .menu-item > div {
     transition: letter-spacing 0.3s;
   }
 
-  .menu-item > div:hover{
+  .menu-item > div:hover {
     letter-spacing: 0.015em;
     will-change: transform;
   }
 
-  .menu-item.active > div::after{
+  .menu-item a[aria-current="page"]::after {
     content: "";
     position: absolute;
     top: 50%;
@@ -140,91 +190,139 @@ const variants = {
     transition: width 0.5s 0.2s ease-in-out;
   }
 
-  .menu-item.active > .line-active::after{
+  .menu-item a[aria-current="page"].line-active::after {
     width: 100%;
     transition: width 0.8s 0.5s ease-in-out;
   }
 </style>
 
 <script>
+  import { gsap } from "gsap";
 
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { navigate } from "astro:transitions/client";
 
-const menu = document.querySelector(".overlay")
+  document.addEventListener("astro:page-load", () => {
+    const menu = document.querySelector(".overlay");
 
-const links = menu.querySelectorAll("a")
+    const links = menu.querySelectorAll("a");
 
-const lineActive = menu.querySelector(".menu-item.active div")
+    const lineActive = menu.querySelector('a[aria-current="page"]') || null;
 
-const toggleMenu = document.querySelector('.toggleMenu')
+    const toggleMenu = document.querySelector(".toggleMenu");
 
-const tl = gsap.timeline({ reversed: true, paused: true });
+    const tl = gsap.timeline({ reversed: true, paused: true });
 
-tl.to(menu,{ 
-  clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-    duration: 1.5,
-    ease: "power4.inOut",
-});
+    const body = document.body;
 
-tl.to(links ,{ 
-    duration: 1.5,
-    y: 0,
-    stagger: 0.2,
-    ease: "power4.inOut"
-},"-=1");
+    tl.to(menu, {
+      clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+      duration: 1.5,
+      ease: "power4.inOut",
+    });
 
-tl.to(lineActive ,{
-  duration: 1,
-  onUpdate: () => {
-    if(reverse){
-      lineActive.classList.add('line-active');
-    } 
+    tl.to(
+      links,
+      {
+        duration: 1.5,
+        y: 0,
+        stagger: 0.2,
+        ease: "power4.inOut",
+      },
+      "-=1"
+    );
 
-  },
-  ease: "power4.inOut",
-  delay: 0.5
-},"<")
-
-tl.to(".submenu", { 
-    duration: 0.5,
-    y: 0,
-    opacity: 1,
-    delay: 0.5,
-},"<");
-
-let reverse = false;
-
-function toggleMenuChangeHandler() {
-
-  const body = document.body;
-
-    console.log("click");
-
-    reverse = !reverse;
-
-    if (tl.reversed()) {
-      tl.timeScale(reverse ? 1 : 1.5).play();
-
-      body.classList.add("overflow-hidden");
-    } else {
-      tl.timeScale(reverse ? 1 : 1.5).reverse();
-      body.classList.remove("overflow-hidden");
-      lineActive.classList.remove('line-active');
+    if (lineActive) {
+      tl.to(
+        lineActive,
+        {
+          onUpdate: () => {
+            if (reverse) {
+              lineActive.classList.add("line-active");
+            }
+          },
+          ease: "power4.inOut",
+          delay: 1,
+        },
+        "<"
+      );
     }
 
-}
+    tl.to(
+      ".submenu",
+      {
+        duration: 0.5,
+        y: 0,
+        opacity: 1,
+        delay: 0.5,
+      },
+      "<"
+    );
 
-toggleMenu.addEventListener('change', toggleMenuChangeHandler);
+    const tlClose = gsap.timeline({ paused: true });
 
-// links.forEach(function(link) {
-//     link.addEventListener('click', function() {
-//         const checkbox = document.getElementById('check-icon');
-//         if (checkbox instanceof HTMLInputElement) {
-//             checkbox.checked = false;
-//         }
-//     });
-// });
+    tlClose.to(".submenu", {
+      duration: 0.4,
+      y: "1rem",
+      opacity: 0,
+    });
 
+    tlClose.to(
+      links,
+      {
+        duration: 1.2,
+        y: "120%",
+        stagger: {
+          amount: 0.5,
+          from: "end",
+        },
+        ease: "power4.inOut",
+      },
+      "-=0.1"
+    );
 
+    let reverse = false;
+
+    function toggleMenuChangeHandler() {
+      console.log("click");
+
+      reverse = !reverse;
+
+      if (tl.reversed()) {
+        tl.timeScale(reverse ? 1 : 1.5).play();
+        body.classList.add("overflow-hidden");
+      } else {
+        tl.timeScale(reverse ? 1 : 1.5).reverse();
+        body.classList.remove("overflow-hidden");
+
+        if (lineActive) {
+          lineActive.classList.remove("line-active");
+        }
+      }
+    }
+
+    toggleMenu.addEventListener("change", toggleMenuChangeHandler);
+
+    links.forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+        const checkbox = document.getElementById("check-icon");
+        const href = link.getAttribute("href");
+
+        if (checkbox instanceof HTMLInputElement) {
+          checkbox.checked = false;
+        }
+
+        tlClose.play();
+
+        body.classList.remove("overflow-hidden");
+        if (lineActive) {
+          lineActive.classList.remove("line-active");
+        }
+
+        tlClose.eventCallback("onComplete", () => {
+          navigate(href);
+        });
+      });
+    });
+  });
 </script>

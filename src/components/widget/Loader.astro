@@ -1,0 +1,162 @@
+<section
+  class="fixed top-0 w-full h-screen bg-black-light z-[100] pre-loader"
+  transition:persist
+>
+  <div class="h-full w-full flex items-end justify-end">
+    <p class="text-white-light mx-20 my-12 text-[2rem] overflow-hidden">
+      <span class="loading__percent block">0%</span>
+    </p>
+  </div>
+</section>
+
+<style>
+  section::before {
+    content: "";
+    transition: 500ms ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(/images/noise.webp);
+    background-repeat: repeat;
+    opacity: 0.5;
+    mix-blend-mode: difference;
+    pointer-events: none;
+    z-index: 0;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+
+  import imagesLoaded from "imagesLoaded";
+
+  import SplitType from "split-type";
+
+  function initLoading() {
+    let LoadedCount = 0;
+    let imgs = document.querySelectorAll("img").length;
+    let containerAll = document.querySelector("body");
+
+    let imgLoaded = imagesLoaded(containerAll);
+
+    imgLoaded
+      .on("fail", (instance) => {
+        doneLoader();
+        containerAll.classList.remove(`overflow-hidden`);
+      })
+      .on("done", (instance) => {
+        doneLoader();
+        containerAll.classList.remove(`overflow-hidden`);
+      })
+      .on("progress", (instance) => {
+        containerAll.classList.add(`overflow-hidden`);
+        LoadedCount++;
+        let percent = Math.floor((LoadedCount / imgs) * 100);
+        headleLoading(percent);
+      });
+  }
+
+  function headleLoading(percent) {
+    const textPerCenter = document.querySelector(".loading__percent");
+    textPerCenter.innerHTML = `${percent}%`;
+  }
+
+  initLoading(); //
+
+  function doneLoader() {
+    const loader = document.querySelector(".pre-loader");
+    if (!loader.classList.contains("loading-complete")) {
+      loader.classList.add("loading-complete");
+      tlLoader.play();
+      animation();
+    }
+  }
+
+  const tlLoader = gsap.timeline({ paused: true });
+
+  tlLoader.to(".loading__percent", {
+    y: "100%",
+    duration: 0.4,
+    ease: "power1.in",
+  });
+
+  tlLoader.to(".pre-loader", {
+    height: 0,
+    duration: 0.8,
+    ease: "power2.in",
+  });
+
+  function animation(delayTime = 1.4) {
+    if (document.querySelector(`.line-text-splide`)) {
+      new SplitType(".line-text-splide", { types: "lines", tagName: "span" });
+
+      const line = document.querySelectorAll(".line-text-splide .line");
+      if (document.querySelectorAll(".ani-fade")) {
+        const items = document.querySelectorAll(".ani-fade");
+
+        gsap.from(items, {
+          delay: delayTime + 0.6,
+          duration: 0.8,
+          y: "1.5rem",
+          autoAlpha: 0,
+          ease: "power3.out",
+          stagger: 0.1,
+        });
+      }
+
+      gsap.from(line, {
+        delay: delayTime,
+        duration: 0.8,
+        y: "60%",
+        autoAlpha: 0,
+        ease: "power3.out",
+        stagger: 0.1,
+      });
+    }
+
+    if (document.querySelector(`#heroSplider`)) {
+      const hero = document.querySelector(`#heroSplider`);
+
+      const img = hero.querySelector("img");
+      const progress = hero.querySelector(".item-progress__container");
+      const title = hero.querySelector("h1");
+      const button = hero.querySelector("a");
+
+      gsap
+        .timeline()
+        .fromTo(
+          img,
+          { scale: 1.1 },
+          { scale: 1, duration: 0.6, ease: "power1.out", delay: delayTime / 2 }
+        )
+        .fromTo(
+          progress,
+          { opacity: 0, y: "0.5rem" },
+          { opacity: 1, y: 0, duration: 0.8, ease: "power1.out" },
+          "-=0.3"
+        )
+
+        .fromTo(
+          title,
+          { opacity: 0, y: "1em" },
+          { opacity: 1, y: 0, duration: 0.8, ease: "power1.out" },
+          "-=0.6"
+        )
+        .fromTo(
+          button,
+          { opacity: 0, y: "0.8em" },
+          { opacity: 1, y: 0, duration: 0.8, ease: "power1.out" },
+          "-=0.4"
+        );
+    }
+  }
+
+  document.addEventListener("astro:after-swap", () => {
+    const loader = document.querySelector(".pre-loader");
+    if (loader.classList.contains("loading-complete")) {
+      animation(0.2);
+    }
+  });
+</script>

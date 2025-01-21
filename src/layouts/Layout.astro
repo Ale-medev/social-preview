@@ -2,9 +2,13 @@
 import Header from "../components/widget/Header.astro";
 import Footer from "../components/widget/Footer.astro";
 import "@splidejs/splide/dist/css/splide.min.css";
+import Loader from "../components/widget/Loader.astro";
+import { fade } from 'astro:transitions';
 import { ClientRouter } from "astro:transitions";
 
 interface Props {
+  metaTitle: string;
+  variant?: "light" | "dark" | "toggle";
   es?: boolean;
   en?: boolean;
   linkBook: string;
@@ -13,9 +17,10 @@ interface Props {
   facebook?: string;
   instagram?: string;
   links: any;
+  toggleLanguage?: string;
 }
 
-const { es, en, linkBook, tel, email, instagram, facebook, links } =
+const { es, en, metaTitle, toggleLanguage, linkBook, tel, email, instagram, facebook, links, variant } =
   Astro.props;
 ---
 
@@ -24,18 +29,19 @@ const { es, en, linkBook, tel, email, instagram, facebook, links } =
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.png" />
     <link
-      href="https://api.fontshare.com/v2/css?f[]=melodrama@400,600&display=swap"
+      href="https://api.fontshare.com/v2/css?f[]=melodrama@100,400,500,600&display=swap"
       rel="stylesheet"
     />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
-    <ClientRouter />
+    <title>{metaTitle}</title>
+    <ClientRouter  />
   </head>
-  <body class="dark bg-white-light dark:bg-black-light">
+  <body class="dark bg-white-light dark:bg-black-light" >
+    <Loader />
     <Header
-      variant="light"
+      variant={variant}
       en={en}
       es={es}
       linkBook={linkBook}
@@ -44,6 +50,7 @@ const { es, en, linkBook, tel, email, instagram, facebook, links } =
       email={email}
       instagram={instagram}
       facebook={facebook}
+      toggleLanguage={toggleLanguage}
     />
 
     <slot />
@@ -86,7 +93,7 @@ const { es, en, linkBook, tel, email, instagram, facebook, links } =
     --font-display-xl: 3rem;
     --font-display-xxl: 3.75rem;
 
-    --h-btn: 3.25rem;
+    --h-btn: 2.75rem;
     --h-header: 4.5rem;
 
     --p-section: 4rem;
@@ -149,8 +156,11 @@ const { es, en, linkBook, tel, email, instagram, facebook, links } =
     max-width: 1440px;
     padding-right: var(--space-main);
     padding-left: var(--space-main);
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
   }
+
+  
 
   @media screen and (min-width: 768px) {
     :root {
@@ -165,6 +175,7 @@ const { es, en, linkBook, tel, email, instagram, facebook, links } =
       --p-section: 7.5rem;
 
       --h-header: 7.625rem;
+      --h-btn: 3.25rem;
     }
 
     html {

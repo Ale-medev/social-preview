@@ -1,0 +1,88 @@
+---
+import HeadLine from "../../components/ui/HeadLine.astro";
+import FeaturesExperience from "../../components/widget/FeaturesExperience.astro";
+import Prefooter from "../../components/widget/Prefooter.astro";
+
+interface Props {
+  es?: boolean;
+  en?: boolean;
+  items?: any;
+  image: any;
+  title: any;
+  text: any;
+  imgPrefooter1: any;
+  imgPrefooter2: any;
+  imgPrefooter3: any;
+  imgPrefooter4: any;
+  imgPrefooter5: any;
+  linkBook: string;
+}
+
+const {
+  es,
+  en,
+  items = [],
+  image,
+  title,
+  text,
+  imgPrefooter1,
+  imgPrefooter2,
+  imgPrefooter3,
+  imgPrefooter4,
+  imgPrefooter5,
+  linkBook,
+} = Astro.props;
+---
+
+<section>
+  <picture class="w-full h-screen block absolute top-0">
+    <img
+      src={image.src}
+      alt={es ? image.alt : en ? image.altEn : ""}
+      class="w-full h-full object-cover block"
+    />
+  </picture>
+  <div
+    class="w-full h-screen bg-white-light/35 dark:bg-black-light/35 absolute top-0"
+  >
+  </div>
+  <div
+    class="px-[var(--space-main)] text-center min-h-screen relative w-full flex justify-center"
+  >
+    <div
+      class="w-full max-w-[1440px] mx-auto pt-10 sm:pt-20 text-black dark:text-white-light"
+    >
+      <HeadLine en={en} es={es} title={title} text={text} alignCenter />
+    </div>
+  </div>
+</section>
+<FeaturesExperience en={en} es={es} items={items} />
+<Prefooter
+  en={en}
+  es={es}
+  linkBook={linkBook}
+  imgOne={imgPrefooter1}
+  imgTwo={imgPrefooter2}
+  imgThree={imgPrefooter3}
+  imgFour={imgPrefooter4}
+  imgFive={imgPrefooter5}
+/>
+
+<style>
+  img {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 36%,
+      rgba(0, 0, 0, 0) 96%
+    );
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 36%,
+      rgba(0, 0, 0, 0) 96%
+    );
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+  }
+</style>

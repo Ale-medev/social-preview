@@ -2,22 +2,49 @@
 import Container from "../ui/Container.astro";
 ---
 
-<Container class="py-[calc(var(--p-section)*2)] overflow-hidden flex flex-col">
-    <div class="w-[50rem] sm:w-full ">
-        <img
-        src="/images/illistrator-bot.webp"
-        alt="Illustration"
-        class="mix-blend-difference translate-x-[-11.5rem] sm:translate-x-0"
-        loading="lazy"
-      />
-    </div>
+<Container
+  class="py-[calc(var(--p-section)*2)] overflow-hidden flex flex-col bg-white-light dark:bg-black-light container-illustrator"
+>
+  <div class="w-[50rem] sm:w-full">
+    <img
+      src="/images/illistrator-bot.webp"
+      alt="Illustration"
+      class="mix-blend-difference translate-x-[-11.5rem] sm:translate-x-0"
+      loading="lazy"
+    />
+  </div>
   <div class="flex justify-center -mt-4">
     <img
       src="/images/vive-como-quieras-illustration.svg"
-      alt="Vive como quieras"
+      aria-hidden="true"
       class="w-10/12 sm:w-[23.5rem]"
       loading="lazy"
     />
   </div>
 </Container>
 
+<style is:global>
+  .dark .container-illustrator::before {
+    opacity: 0.5;
+    mix-blend-mode: difference;
+  }
+
+  .container-illustrator::before {
+    content: "";
+    transition: 500ms ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(/images/noise.webp);
+    background-repeat: repeat;
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container-illustrator{
+    transition: 500ms ease-in-out;
+  }
+</style>

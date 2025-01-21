@@ -1,0 +1,15 @@
+---
+import Container from '../ui/Container.astro';
+import HeadLine from '../ui/HeadLine.astro'
+
+const { title, text, en, es, alignCenter} = Astro.props;
+---
+<Container class="text-black dark:text-white-light">
+  <HeadLine 
+    en={en}
+    es={es}
+    title={title} 
+    text={text}
+    alignCenter={alignCenter}
+  />
+</Container>
