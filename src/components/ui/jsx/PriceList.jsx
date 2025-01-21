@@ -58,7 +58,7 @@ const ItemList = ({
         <span>{price ? price + "€" : "Sin stock"}</span>
         {glass && (
           <span className="flex gap-4">
-            <img src="/images/copa-icon.svg" aria-hidden="true" loading="lazy" className="h-6"/>
+            <img src="/images/copa-icon.svg" aria-hidden="true" loading="lazy" className="h-6 mix-blend-difference"/>
             <span>{glass}€</span>
           </span>
         )}
