@@ -1,19 +1,27 @@
 ---
 const { videoId } = Astro.props;
 
-const videoSource = "https://player.vimeo.com/video/" + videoId + "?controls=0&muted=1&playsinline=1&loop=1"
+const videoSource =
+  "https://player.vimeo.com/video/" +
+  videoId +
+  "?controls=0&muted=1&playsinline=1&loop=1";
 ---
 
 <div class="iframe-container">
-  <iframe src={videoSource} allow="fullscreen; picture-in-picture" allowfullscreen>
+  <iframe
+    src={videoSource}
+    id="video"
+    allow="fullscreen; picture-in-picture"
+    allowfullscreen
+  >
   </iframe>
 </div>
 
 <style>
   .iframe-container {
     position: relative;
-    width: 100%; 
-    padding-top: 56.25%; 
+    width: 100%;
+    padding-top: 56.25%;
     overflow: hidden;
     transform: scale(0.7);
   }
@@ -23,7 +31,7 @@ const videoSource = "https://player.vimeo.com/video/" + videoId + "?controls=0&m
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%; 
+    height: 100%;
     border: none;
   }
 </style>
@@ -32,26 +40,29 @@ const videoSource = "https://player.vimeo.com/video/" + videoId + "?controls=0&m
   import Player from "@vimeo/player";
 
   document.addEventListener("astro:page-load", () => {
-    const iframe = document.querySelector("iframe");
-    const player = new Player(iframe);
+    const iframe = document.querySelector("#video");
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            player
-              .play()
-              .catch((error) => console.error("Error al reproducir:", error));
-          } else {
-            player
-              .pause()
-              .catch((error) => console.error("Error al pausar:", error));
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+    if (iframe) {
+      const player = new Player(iframe);
 
-    observer.observe(iframe);
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              player
+                .play()
+                .catch((error) => console.error("Error al reproducir:", error));
+            } else {
+              player
+                .pause()
+                .catch((error) => console.error("Error al pausar:", error));
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      observer.observe(iframe);
+    }
   });
 </script>

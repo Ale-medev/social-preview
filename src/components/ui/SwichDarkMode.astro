@@ -34,12 +34,10 @@ import IconLightMode from "../common/IconLightMode.astro";
     if (localStorage.getItem("switchActive") === null) {
       body.classList.add("dark");
       themeSwitch.checked = false;
-      console.log('ejecuta')
     }
   }
 
   document.addEventListener('astro:after-swap', applyTheme);
-  applyTheme();
 
   document.addEventListener("astro:page-load", () => {
     const themeSwitch = document.getElementById(

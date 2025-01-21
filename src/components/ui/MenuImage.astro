@@ -12,7 +12,9 @@ interface Props {
 
 const { en, es, image, heightMax } = Astro.props;
 ---
-<img src={image.src} alt={es ? image.alt : en ? image.altEn : ""} class={`ani-fade img-menu object-cover w-full ${heightMax ? 'h-[30rem] sm:h-[40.75rem] imgAlt' : 'h-[30rem] sm:h-[40.75rem]'}`} loading="lazy">
+<div class={`w-full ${heightMax ? 'h-[30rem] sm:h-[40.75rem] imgAlt' : 'h-[30rem] sm:h-[40.75rem]'}`}>
+  <img src={image.src} alt={es ? image.alt : en ? image.altEn : ""} class='img-menu object-cover w-full h-full' loading="lazy">
+</div>
 
 
 <style is:global>

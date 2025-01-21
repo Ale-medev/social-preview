@@ -4,28 +4,30 @@ import { gsap } from "gsap";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-function toggleLightMode() {
-  const body = document.body;
-  const themeSwitch = document.getElementById("toggle-theme");
-
-  if (localStorage.getItem("switchActive") === null) {
-    body.classList.remove("dark");
-    themeSwitch.checked = true;
-  }
-}
-
-function toggleDarkMode() {
-  const body = document.body;
-  const themeSwitch = document.getElementById("toggle-theme");
-
-  if (localStorage.getItem("switchActive") === null) {
-    body.classList.add("dark");
-    themeSwitch.checked = false;
-  }
-}
-
 document.addEventListener("astro:page-load", () => {
+
+  function toggleLightMode() {
+    const body = document.body;
+    const themeSwitch = document.getElementById("toggle-theme");
+  
+    if (localStorage.getItem("switchActive") === null) {
+      body.classList.remove("dark");
+      themeSwitch.checked = true;
+    }
+  }
+  
+  function toggleDarkMode() {
+    const body = document.body;
+    const themeSwitch = document.getElementById("toggle-theme");
+  
+    if (localStorage.getItem("switchActive") === null) {
+      body.classList.add("dark");
+      themeSwitch.checked = false;
+    }
+  }
+
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.killAll();
 
   const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
@@ -185,8 +187,8 @@ document.addEventListener("astro:page-load", () => {
     });
 
     ScrollTrigger.create({
-      trigger: el,
-      start: "bottom 65%",
+      trigger: videoContainer,
+      start: "bottom 95%",
       onEnter: () => toggleLightMode(),
       onLeaveBack: () => toggleDarkMode(),
     });
@@ -274,6 +276,7 @@ document.addEventListener("astro:page-load", () => {
   }
 
   function preFooterSection(el) {
+
     const trigger = el.querySelector("div");
 
     const scrollTriggerConfig = {
@@ -373,6 +376,8 @@ document.addEventListener("astro:page-load", () => {
       });
     });
   }
+
+
 
   // Llamamos a getSections en cada sección del documento
   document.querySelectorAll("[data-section]").forEach((section) => {
