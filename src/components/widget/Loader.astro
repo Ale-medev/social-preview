@@ -85,7 +85,7 @@
     ease: "power2.in",
   });
 
-  function animation(delayTime = 1.4) {
+  function animation(delayTime = 1) {
     if (document.querySelector(`.line-text-splide`)) {
       new SplitType(".line-text-splide", { types: "lines", tagName: "span" });
 
@@ -124,15 +124,9 @@
       gsap
         .timeline()
         .fromTo(
-          img,
-          { scale: 1.1 },
-          { scale: 1, duration: 0.6, ease: "power1.out", delay: delayTime / 2 }
-        )
-        .fromTo(
           progress,
           { opacity: 0, y: "0.5rem" },
-          { opacity: 1, y: 0, duration: 0.8, ease: "power1.out" },
-          "-=0.3"
+          { opacity: 1, y: 0, duration: 0.8, ease: "power1.out", delay: delayTime}
         )
 
         .fromTo(
@@ -153,7 +147,7 @@
   document.addEventListener("astro:after-swap", () => {
     const loader = document.querySelector(".pre-loader");
     if (loader.classList.contains("loading-complete")) {
-      animation(0.2);
+      animation(0.4);
     }
   });
 </script>
