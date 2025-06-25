@@ -47,4 +47,4 @@ Puedes ver la **primera versión funcional del sitio** en el siguiente enlace:
 **Diseño y desarrollo por Alejandro Medail**  
 📧 [amedail.design@gmail.com](mailto:amedail.design@gmail.com)
 
-Este proyecto fue desarrollado como parte del trabajo realizado para [DaraProject](https://daraproject.com/).
+Este proyecto fue desarrollado como parte del equipo de [DaraProject](https://daraproject.com/).
