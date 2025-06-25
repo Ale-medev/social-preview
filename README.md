@@ -18,6 +18,7 @@ La estructura prioriza la experiencia del usuario, con navegación clara, diseñ
 
 ## 📁 Estructura del Proyecto
 
+```
 ├── public/                 # Archivos estáticos públicos
 ├── src/
 │   ├── assets/             # Imágenes, fuentes, íconos
@@ -29,7 +30,7 @@ La estructura prioriza la experiencia del usuario, con navegación clara, diseñ
 │   └── scripts/            # Archivos JS personalizados
 ├── astro.config.mjs        # Configuración principal de Astro
 └── package.json            # Dependencias y scripts del proyecto
-
+```
 
 ---
 
