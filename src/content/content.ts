@@ -144,6 +144,21 @@ const GRID_SERVICE = [
       },
       {
         title: {
+          es: contentData.itemService6.title,
+          en: contentData.itemService6.titleEn
+        },
+        service: {
+          es: contentData.itemService6.label,
+          en: contentData.itemService6.labelEn
+        },
+        img: contentData.itemService6.image.node.mediaItemUrl,
+        link: {
+          es: "/experiencias/cenaempresas/",
+          en: "/en/experiences/corporatedinner/"
+        },
+      },
+      {
+        title: {
           es: contentData.itemService4.title,
           en: contentData.itemService4.titleEn
         },
@@ -170,21 +185,6 @@ const GRID_SERVICE = [
         link: {
           es: "/experiencias/cumpleaños/",
           en: "/en/experiences/birthday/"
-        },
-      },
-      {
-        title: {
-          es: contentData.itemService6.title,
-          en: contentData.itemService6.titleEn
-        },
-        service: {
-          es: contentData.itemService6.label,
-          en: contentData.itemService6.labelEn
-        },
-        img: contentData.itemService6.image.node.mediaItemUrl,
-        link: {
-          es: "/experiencias/cenaempresas/",
-          en: "/en/experiences/corporatedinner/"
         },
       },
       {

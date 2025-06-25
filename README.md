@@ -1,48 +1,49 @@
-# Astro Starter Kit: Basics
+# Sitio Web Social Point - Primera Versión (Astro + Tailwind CSS)
 
-```sh
-npm create astro@latest -- --template basics
-```
+Sitio web corporativo visualmente atractivo, desarrollado con Astro y estilizado con Tailwind CSS.  
+Diseñado para reflejar la identidad visual del restaurante **Social Point** y facilitar el proceso de reserva directamente desde el sitio web.  
+La estructura prioriza la experiencia del usuario, con navegación clara, diseño responsive y foco en la conversión.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+---
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🚀 Tech Stack / Tecnologías
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+- [Astro](https://astro.build/) – Framework principal para desarrollo de sitios rápidos y estáticos.
+- [React](https://react.dev/) – Para componentes interactivos y reutilizables.
+- [Tailwind CSS](https://tailwindcss.com/) – Utilizado para el diseño visual y la estructura responsive.
+- [GSAP](https://gsap.com/) – Animaciones suaves y controladas.
+- [Cloudflare Pages](https://pages.cloudflare.com/) – Plataforma de despliegue del sitio.
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro project, you'll see the following folders and files:
+## 📁 Estructura del Proyecto
 
-```text
-/
-├── public/
-│   └── favicon.svg
+├── public/                 # Archivos estáticos públicos
 ├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+│   ├── assets/             # Imágenes, fuentes, íconos
+│   ├── components/         # Componentes reutilizables (Astro / React)
+│   ├── content/            # Contenido estructurado o dinámico
+│   ├── layouts/            # Plantillas y disposiciones generales
+│   ├── lib/                # Funciones auxiliares o utilidades
+│   ├── pages/              # Rutas y páginas del sitio
+│   └── scripts/            # Archivos JS personalizados
+├── astro.config.mjs        # Configuración principal de Astro
+└── package.json            # Dependencias y scripts del proyecto
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
 
-## 🧞 Commands
+---
 
-All commands are run from the root of the project, from a terminal:
+## 🌐 Versión Online
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Puedes ver la **primera versión funcional del sitio** en el siguiente enlace:
 
-## 👀 Want to learn more?
+🔗 [https://joyful-parfait-a4a9e3.netlify.app/](https://joyful-parfait-a4a9e3.netlify.app/)
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+---
+
+## 👤 Autor
+
+**Diseño y desarrollo por Alejandro Medail**  
+📧 [amedail.design@gmail.com](mailto:amedail.design@gmail.com)
+
+Este proyecto fue desarrollado como parte del trabajo realizado para [DaraProject](https://daraproject.com/).
